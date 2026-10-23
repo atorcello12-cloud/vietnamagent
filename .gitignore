@@ -2,3 +2,5 @@
 Thumbs.db
 desktop.ini
 *.tmp
+# Local Claude Code settings and the auto-push hook (not part of the site)
+.claude/
