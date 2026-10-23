@@ -311,7 +311,7 @@ details.day[open] { gap: 10px; }
     <button data-tab="trip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>Trip</button>
     <button data-tab="weather"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 2v1.5M2 8h1.5M3.8 3.8l1 1M12.2 3.8l-1 1M7 19h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 19z"/></svg>Weather</button>
     <button data-tab="eat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a9 9 0 0 1-18 0z"/><path d="M8 8c0-2 2-2 2-4M12 8c0-2 2-2 2-4M16 8c0-2 2-2 2-4"/></svg>Eat</button>
-    <button data-tab="do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Do</button>
+    <button data-tab="do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>What to do</button>
     <button data-tab="kit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg>Toolkit</button>
   </div>
 </nav>
@@ -1043,7 +1043,7 @@ function viewDo() {
   const cats = CATS.filter(k => inCity.some(x => x.cat === k[0]));
   const c = store.get('f-cat', ''), cat = cats.find(k => k[0] === c);
   return `<section class="view">
-    <div class="section-head"><span class="eyebrow">Đi đâu? · Where to go</span><h1>Do</h1></div>
+    <div class="section-head"><span class="eyebrow">Đi đâu? · Where to go</span><h1>What to do</h1></div>
     ${cityBar('do2', f)}
     <div class="tiles two">${cats.map(k => `
       <button class="tile" data-k="${k[0]}" data-filter="cat" data-v="${k[0]}" data-toggle="1" aria-pressed="${c === k[0]}">
