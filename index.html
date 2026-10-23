@@ -234,6 +234,21 @@ details[open] > summary .chev-d { transform: rotate(90deg); }
 .kit-row { font-size: .88rem; line-height: 1.5; }
 .btn.sm { width: fit-content; padding: 7px 12px; font-size: .8rem; }
 .place-links { gap: 6px; }
+/* Weather */
+.wx-ico { width: 26px; height: 26px; color: var(--lantern); flex: none; }
+.wx-ico.big { width: 54px; height: 54px; }
+.wx-now { display: flex; align-items: center; gap: 14px; }
+.wx-temp { font: 700 2.4rem/1 var(--f-display); }
+.wx-days { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.wx-day { flex: none; width: 58px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 4px; border-radius: 12px; border: 1px solid var(--line); font-size: .78rem; font-variant-numeric: tabular-nums; }
+.wx-day.here { background: var(--lantern-soft); border-color: var(--lantern); }
+.wx-dow { font-weight: 600; }
+.wx-date { font: 500 .66rem var(--f-mono); color: var(--muted); }
+.wx-rain { font: 600 .68rem var(--f-mono); color: var(--sea); }
+.wx-legend { display: flex; align-items: center; gap: 6px; font-size: .74rem; color: var(--muted); }
+.wx-key { width: 12px; height: 12px; border-radius: 3px; background: var(--lantern-soft); border: 1px solid var(--lantern); }
+.wx-clim { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 10px; background: rgba(0,0,0,.18); font-size: .88rem; }
+.wx-off { font-size: .84rem; }
 .rate-status { font-size: .78rem; }
 .btn.sm svg { width: 16px; height: 16px; }
 .cost-line { font: 500 .8rem var(--f-mono); color: var(--lantern); }
@@ -291,7 +306,7 @@ details.day[open] { gap: 10px; }
 <nav class="tabs" aria-label="Sections">
   <div class="tabs-in">
     <button data-tab="trip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>Trip</button>
-    <button data-tab="flights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5 3 11l1.5-1.5 7.5 1L16.5 6a2 2 0 0 1 3 3L15 13.5l1 7.5-1.5 1.5-2.5-7.5-3 3V21l-1.5 1-1-3.5-3.5-1L4 16h2.5z"/></svg>Flights</button>
+    <button data-tab="weather"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 2v1.5M2 8h1.5M3.8 3.8l1 1M12.2 3.8l-1 1M7 19h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 19z"/></svg>Weather</button>
     <button data-tab="eat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a9 9 0 0 1-18 0z"/><path d="M8 8c0-2 2-2 2-4M12 8c0-2 2-2 2-4M16 8c0-2 2-2 2-4"/></svg>Eat</button>
     <button data-tab="do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Do</button>
     <button data-tab="kit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg>Toolkit</button>
@@ -691,6 +706,104 @@ function viewTrip() {
   </section>`;
 }
 
+// Weather: live 16-day forecasts from Open-Meteo (free, no key) for each stop, with your stay days
+// highlighted, and typical November conditions shown whenever the live forecast can't be reached.
+const WX_PLACES = [
+  { id: 'hcm', name: 'Saigon', vn: 'Sài Gòn', lat: 10.7769, lon: 106.7009, stays: [['2026-10-31', '2026-11-01'], ['2026-11-12', '2026-11-14']],
+    clim: { hi: 31, lo: 24, rain: '~10 rainy days', note: 'End of the wet season. Mostly sunny mornings, with the odd short afternoon downpour.' } },
+  { id: 'dad', name: 'Da Nang', vn: 'Đà Nẵng', lat: 16.0544, lon: 108.2022, stays: [['2026-11-02', '2026-11-07']],
+    clim: { hi: 27, lo: 22, rain: '~20 rainy days', note: 'Peak rainy season on the central coast. Expect grey, wet spells and rough seas. Storms can bring flooding.' } },
+  { id: 'hoi', name: 'Hoi An', vn: 'Hội An', lat: 15.8801, lon: 108.338, stays: [['2026-11-02', '2026-11-07']],
+    clim: { hi: 27, lo: 22, rain: '~20 rainy days', note: 'Same season as Da Nang. The riverside old town can flood after heavy rain, so check before heading in.' } },
+  { id: 'pqc', name: 'Phu Quoc', vn: 'Phú Quốc', lat: 10.2899, lon: 103.984, stays: [['2026-11-08', '2026-11-11']],
+    clim: { hi: 30, lo: 24, rain: '~8 rainy days', note: 'Start of the dry season. Mostly sunny, with calm, clear seas, the best beach weather of the trip.' } }
+];
+const WX = {
+  0: ['Clear', 'sun'], 1: ['Mostly sunny', 'sun'], 2: ['Partly cloudy', 'part'], 3: ['Cloudy', 'cloud'], 45: ['Fog', 'cloud'], 48: ['Fog', 'cloud'],
+  51: ['Light drizzle', 'rain'], 53: ['Drizzle', 'rain'], 55: ['Heavy drizzle', 'rain'], 61: ['Light rain', 'rain'], 63: ['Rain', 'rain'], 65: ['Heavy rain', 'rain'],
+  80: ['Showers', 'rain'], 81: ['Showers', 'rain'], 82: ['Heavy showers', 'rain'], 95: ['Thunderstorms', 'storm'], 96: ['Thunderstorms', 'storm'], 99: ['Thunderstorms', 'storm']
+};
+const WX_ICON = {
+  sun: '<circle class="fill" cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>',
+  part: '<circle class="fill" cx="9" cy="8" r="3.5"/><path d="M9 2v1.2M3 8h1.2M4.8 3.8l.9.9M13.2 3.8l-.9.9"/><path class="fill" d="M8 20h9a3.5 3.5 0 0 0 0-7 4.5 4.5 0 0 0-8.7 1.3A2.9 2.9 0 0 0 8 20z"/><path d="M8 20h9a3.5 3.5 0 0 0 0-7 4.5 4.5 0 0 0-8.7 1.3A2.9 2.9 0 0 0 8 20z"/>',
+  cloud: '<path class="fill" d="M7 18h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 18z"/><path d="M7 18h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 18z"/>',
+  rain: '<path class="fill" d="M7 15h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 15z"/><path d="M7 15h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 15zM8 18l-1 2.5M12 18l-1 2.5M16 18l-1 2.5"/>',
+  storm: '<path class="fill" d="M7 14h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 14z"/><path d="M7 14h10a4 4 0 0 0 0-8 5 5 0 0 0-9.6 1.5A3.3 3.3 0 0 0 7 14zM12.5 15l-2 3.5h3l-2 3.5"/>'
+};
+const wxCode = c => WX[c] || WX[Math.floor(c / 10) * 10] || ['Mixed', 'part'];
+const wxIco = (k, cls = '') => `<svg class="wx-ico ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${WX_ICON[k]}</svg>`;
+const inStay = (p, d) => p.stays.some(([a, b]) => d >= a && d <= b);
+const stayText = p => p.stays.map(([a, b]) => { const f = s => new Date(s + 'T00:00:00').toLocaleDateString('en-AU', { day: 'numeric', month: 'short' }); return a === b ? f(a) : `${f(a)} – ${f(b)}`; }).join(' & ');
+
+function wxCard(p, data) {
+  const c = p.clim;
+  let live = '';
+  if (data && data.daily) {
+    const d = data.daily, cur = data.current || {};
+    const [label, icon] = wxCode(cur.weather_code ?? d.weather_code[0]);
+    live = `
+      <div class="wx-now">
+        ${wxIco(icon, 'big')}
+        <div><div class="wx-temp">${Math.round(cur.temperature_2m ?? d.temperature_2m_max[0])}°</div><div class="muted">${label}${cur.relative_humidity_2m != null ? ` · ${cur.relative_humidity_2m}% humidity` : ''}</div></div>
+      </div>
+      <div class="wx-days" role="list">${d.time.map((t, i) => {
+        const [lb, ic] = wxCode(d.weather_code[i]), dt = new Date(t + 'T00:00:00'), here = inStay(p, t);
+        return `<div class="wx-day${here ? ' here' : ''}" role="listitem" title="${lb}">
+          <span class="wx-dow">${dt.toLocaleDateString('en-AU', { weekday: 'short' })}</span>
+          <span class="wx-date">${dt.getDate()}/${dt.getMonth() + 1}</span>
+          ${wxIco(ic)}
+          <b>${Math.round(d.temperature_2m_max[i])}°</b><span class="muted">${Math.round(d.temperature_2m_min[i])}°</span>
+          <span class="wx-rain">${d.precipitation_probability_max[i] ?? 0}%</span>
+        </div>`; }).join('')}</div>
+      <p class="wx-legend"><span class="wx-key"></span>Your days here · % is chance of rain</p>`;
+  }
+  return `<details class="card spot wx-card" open>
+    <summary><span class="sum"><h3>${p.name} <span class="vn">${p.vn}</span></h3><span class="muted">You're here ${stayText(p)}</span></span>${chev}</summary>
+    <div class="spot-body">
+      ${live || `<p class="muted wx-off">Live forecast unavailable here. Showing typical November weather.</p>`}
+      <div class="wx-clim"><span class="eyebrow">Typical November</span><p><b>${c.lo}–${c.hi}°C</b> · ${c.rain}</p><p class="muted">${c.note}</p></div>
+    </div>
+  </details>`;
+}
+
+function viewWeather() {
+  const cache = store.get('wx', null);
+  return `<section class="view">
+    <div class="section-head"><span class="eyebrow">Thời tiết · Weather</span><h1>Weather</h1></div>
+    <div class="row"><button type="button" class="btn ghost sm" id="wx-refresh">↻ Refresh forecast</button><span class="muted rate-status" id="wx-status">${cache ? 'Updated ' + new Date(cache.at).toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' }) : ''}</span></div>
+    <div class="stack" id="wx-list">${WX_PLACES.map((p, i) => wxCard(p, cache && cache.data[i])).join('')}</div>
+    <p class="hint">Forecasts reach 16 days ahead, so trip days fill in as you get closer.</p>
+  </section>`;
+}
+
+async function fetchWeather() {
+  const q = k => WX_PLACES.map(p => p[k]).join(',');
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${q('lat')}&longitude=${q('lon')}&current=temperature_2m,weather_code,relative_humidity_2m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FBangkok&forecast_days=16`;
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error('weather ' + res.status);
+  const j = await res.json();
+  const data = Array.isArray(j) ? j : [j];
+  store.set('wx', { at: Date.now(), data });
+  return data;
+}
+
+function wireWeather() {
+  const btn = $('#wx-refresh'), status = $('#wx-status');
+  const pull = async () => {
+    btn.disabled = true; status.textContent = 'Checking the forecast…';
+    try {
+      const data = await fetchWeather();
+      $('#wx-list').innerHTML = WX_PLACES.map((p, i) => wxCard(p, data[i])).join('');
+      status.textContent = 'Updated ' + new Date().toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' });
+    } catch (e) {
+      status.textContent = store.get('wx', null) ? 'Couldn\'t refresh. Showing the last forecast.' : 'Couldn\'t reach the forecast. Showing typical weather.';
+    } finally { btn.disabled = false; }
+  };
+  btn.addEventListener('click', pull);
+  const c = store.get('wx', null);
+  if (!c || Date.now() - c.at > 3600e3) pull();
+}
+
 // Flight durations, worked out across time zones (Melbourne AEDT UTC+11, Vietnam UTC+7)
 const DUR = { VJ082: '8h 25m', VJ640: '1h 20m', VJ715: '1h 45m', VN1824: '1h 10m', VJ081: '8h 30m' };
 function viewFlights() {
@@ -966,7 +1079,7 @@ const RAFFY_KIT = [
     ['Laundry', [
       'Hotels and local laundries wash by the kilo, often same-day, which is handy for little clothes.']]
   ] },
-  { title: 'Food & drink to watch', sub: 'What to skip, allergies, water', icon: 'taste', groups: [
+  { title: 'Food to avoid', sub: 'What to skip, allergies, water', icon: 'taste', groups: [
     ['Worth skipping', [
       '<span class="vn">Tiết canh</span>: raw blood pudding, sometimes on menus in the north and centre. Linked to serious infections.',
       '<span class="vn">Rượu</span> in unlabelled bottles: homemade rice spirit can contain methanol. Stick to branded bottles.',
@@ -1066,7 +1179,7 @@ ${RAFFY_KIT.filter(k => k.icon !== 'taste').map(kitCard).join('')}
   </section>`;
 }
 
-const VIEWS = { trip: viewTrip, flights: viewFlights, eat: viewEat, do: viewDo, kit: viewKit };
+const VIEWS = { trip: viewTrip, weather: viewWeather, eat: viewEat, do: viewDo, kit: viewKit };
 let cur = 'trip';
 
 function priceRef(rate) {
@@ -1080,6 +1193,7 @@ function render(tab) {
   document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === cur ? 'page' : 'false'));
   try { history.replaceState(null, '', '#' + cur); } catch (e) {}
   if (cur === 'kit') wireKit();
+  if (cur === 'weather') wireWeather();
 }
 
 // Text to speech with the device's own voices (Web Speech API). Vietnamese needs a vi-VN voice on the phone.
