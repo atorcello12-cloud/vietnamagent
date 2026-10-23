@@ -249,6 +249,9 @@ details[open] > summary .chev-d { transform: rotate(90deg); }
 .wx-key { width: 12px; height: 12px; border-radius: 3px; background: var(--lantern-soft); border: 1px solid var(--lantern); }
 .wx-clim { display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 10px; background: rgba(0,0,0,.18); font-size: .88rem; }
 .wx-off { font-size: .84rem; }
+.wx-banner { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 14px; background: var(--lantern-soft); border: 1px solid var(--lantern); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.wx-banner .wx-ico { width: 30px; height: 30px; }
+.wx-banner p { font-size: .9rem; line-height: 1.5; }
 .rate-status { font-size: .78rem; }
 .btn.sm svg { width: 16px; height: 16px; }
 .cost-line { font: 500 .8rem var(--f-mono); color: var(--lantern); }
@@ -770,10 +773,19 @@ function viewWeather() {
   const cache = store.get('wx', null);
   return `<section class="view">
     <div class="section-head"><span class="eyebrow">Thời tiết · Weather</span><h1>Weather</h1></div>
+    <div class="wx-banner">
+      ${wxIco('part')}
+      <p><b>Live weather fills in as the trip gets closer.</b> Forecasts reach about 16 days ahead, so right now they run to <b>${wxHorizon()}</b>. Days after that show the typical November weather until the live forecast reaches them.</p>
+    </div>
     <div class="row"><button type="button" class="btn ghost sm" id="wx-refresh">↻ Refresh forecast</button><span class="muted rate-status" id="wx-status">${cache ? 'Updated ' + new Date(cache.at).toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' }) : ''}</span></div>
     <div class="stack" id="wx-list">${WX_PLACES.map((p, i) => wxCard(p, cache && cache.data[i])).join('')}</div>
-    <p class="hint">Forecasts reach 16 days ahead, so trip days fill in as you get closer.</p>
   </section>`;
+}
+// Last date the live forecast covers (from the saved forecast, else today + 15 days)
+function wxHorizon() {
+  const c = store.get('wx', null), days = c && c.data && c.data[0] && c.data[0].daily && c.data[0].daily.time;
+  const last = days ? new Date(days[days.length - 1] + 'T00:00:00') : new Date(Date.now() + 15 * 864e5);
+  return last.toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
 async function fetchWeather() {
