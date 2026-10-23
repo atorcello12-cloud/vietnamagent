@@ -1,0 +1,1426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3A2A2E">
+<meta name="description" content="Our family trip to Vietnam: route, flights, food, things to do and a travel toolkit.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style><title>Vietnam Family Trip</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: a phone-first app shell — scrolling glass panels above a fixed bottom tab bar, floating over a live night scene of Hoi An's lantern river. Single night theme by design. */
+:root {
+  color-scheme: dark;
+  --paper: #3A2A2E;        /* river at dusk */
+  --card: rgba(32,20,20,.84);
+  --ink: #FFF8EF;
+  --muted: #E8DACB;
+  --line: rgba(255,232,205,.26);
+  --jade: #5CC9A7;
+  --jade-soft: rgba(92,201,167,.15);
+  --lantern: #F5B544;      /* Hoi An lantern saffron */
+  --lantern-soft: rgba(245,181,68,.17);
+  --lotus: #F08BA8;        /* lotus pink */
+  --lotus-soft: rgba(240,139,168,.16);
+  --sea: #7CC0E6;
+  --sea-soft: rgba(124,192,230,.15);
+  --warn: #F6A35F;
+  --warn-soft: rgba(246,163,95,.16);
+  --shadow: 0 1px 3px rgba(20,8,5,.45), 0 10px 28px rgba(20,8,5,.4);
+  --hero-bg: rgba(36,22,20,.78);
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --r: 14px;
+}
+* { box-sizing: border-box; }
+#bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.app { position: relative; z-index: 1; }
+.card, .pass, .meal-h, .tabs, .filters button { -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); }
+.card, .pass, .meal-h { border: 1px solid var(--line); }
+.section-head, .route > .eyebrow { text-shadow: 0 1px 3px rgba(20,8,6,.9), 0 2px 14px rgba(20,8,6,.8); }
+.hero { border: 1px solid var(--line); }
+body { background: var(--paper); color: var(--ink); font: 15px/1.55 var(--f-body); }
+.app { max-width: 640px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 12px calc(96px + env(safe-area-inset-bottom, 0px)); }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: 2rem; font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--jade); }
+.eyebrow { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.vn { font-family: var(--f-display); font-weight: 500; color: var(--jade); }
+.muted { color: var(--muted); }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.view { display: flex; flex-direction: column; gap: 22px; }
+.section-head { display: flex; flex-direction: column; gap: 4px; }
+
+/* Hero */
+.hero { position: relative; overflow: hidden; background: var(--hero-bg); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #F4F8F6; border-radius: 20px; padding: 22px 20px 20px; display: flex; flex-direction: column; gap: 14px; }
+.hero .eyebrow { color: rgba(244,248,246,.75); }
+.hero h1 { color: #FFFFFF; max-width: 12ch; }
+.hero-lanterns { position: absolute; right: 10px; top: -6px; width: 120px; height: auto; pointer-events: none; }
+.count { display: flex; gap: 10px; flex-wrap: wrap; }
+.count div { background: rgba(255,255,255,.12); border-radius: 14px; padding: 10px 16px; min-width: 78px; }
+.count b { display: block; font: 700 2rem/1 var(--f-mono); font-variant-numeric: tabular-nums; color: #FFFFFF; }
+.count span { font-size: .82rem; color: rgba(244,248,246,.85); }
+.hero small { color: rgba(244,248,246,.9); font-size: .95rem; }
+
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { font-size: .78rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); color: var(--ink); white-space: nowrap; }
+.chip.raffy { background: var(--lantern-soft); border-color: transparent; }
+.chip.parents { background: var(--lotus-soft); border-color: transparent; }
+.chip.easy { background: var(--jade-soft); border-color: transparent; }
+.chip.beach { background: var(--sea-soft); border-color: transparent; }
+.chip.adults { background: var(--paper); }
+
+.card { background: var(--card); border-radius: var(--r); box-shadow: var(--shadow); padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.alert { background: var(--warn-soft); border-radius: var(--r); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.alert h3 { color: var(--warn); }
+
+/* Route */
+.route { position: relative; display: flex; flex-direction: column; gap: 14px; padding-left: 28px; }
+.route::before { content: ""; position: absolute; left: 9px; top: 10px; bottom: 10px; width: 3px; border-radius: 3px; background: repeating-linear-gradient(var(--jade) 0 8px, transparent 8px 14px); opacity: .5; }
+.stop { position: relative; }
+.stop::before { content: ""; position: absolute; left: -26px; top: 18px; width: 15px; height: 15px; border-radius: 50%; background: var(--card); border: 3px solid var(--jade); }
+.stop.now::before { background: var(--lantern); border-color: var(--lantern); box-shadow: 0 0 0 5px var(--lantern-soft); }
+.stop-btn { all: unset; cursor: pointer; display: flex; flex-direction: column; gap: 6px; width: 100%; box-sizing: border-box; }
+.stop-btn:focus-visible { outline: 2px solid var(--jade); outline-offset: 4px; border-radius: 8px; }
+.stop-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.dates { font: 500 .78rem var(--f-mono); color: var(--muted); white-space: nowrap; }
+.tbc { font: 700 .66rem var(--f-mono); letter-spacing: .06em; color: var(--warn); background: var(--warn-soft); padding: 2px 6px; border-radius: 6px; }
+.weather { font-size: .82rem; color: var(--muted); }
+.stay { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: .84rem; color: var(--lantern); }
+.stay b { font-weight: 600; color: var(--ink); }
+.stay span { color: var(--muted); }
+.stay span::before { content: "· "; }
+.suggest { font-size: .8rem; font-style: italic; color: var(--lantern); }
+.idea { width: fit-content; font: 600 .62rem var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--lantern); border: 1px solid var(--lantern); border-radius: 999px; padding: 1px 7px; }
+.stay-warn { font-size: .8rem; color: var(--warn); background: var(--warn-soft); padding: 6px 10px; border-radius: 8px; }
+.chev { transition: transform .2s; color: var(--muted); }
+.stop[open] .chev { transform: rotate(90deg); }
+.stop-body { display: none; flex-direction: column; gap: 12px; padding-top: 6px; }
+.stop[open] .stop-body { display: flex; }
+
+.day { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.day-h { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.slot { display: grid; grid-template-columns: 72px 1fr; gap: 10px; }
+.slot-t { font: 500 .72rem var(--f-mono); color: var(--muted); padding-top: 3px; text-transform: uppercase; letter-spacing: .04em; }
+.slot-b { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.slot-b b { font-weight: 600; }
+.flightpill { display: inline-flex; gap: 6px; align-items: center; font: 700 .74rem var(--f-mono); color: var(--sea); background: var(--sea-soft); padding: 3px 8px; border-radius: 6px; width: fit-content; }
+
+/* Boarding passes */
+.pass { background: var(--card); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
+.pass-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background: var(--jade-soft); gap: 10px; }
+.pass-top .num { font: 700 .95rem var(--f-mono); color: var(--jade); }
+.pass-main { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; padding: 16px; }
+.iata { font: 700 2rem/1 var(--f-mono); letter-spacing: -.02em; }
+.pass-main .r { text-align: right; }
+.pass-main .t { font: 500 .95rem var(--f-mono); }
+.pass-main .c { font-size: .78rem; color: var(--muted); }
+.plane { color: var(--muted); }
+.mid { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.dur { font: 600 .72rem var(--f-mono); color: var(--lantern); white-space: nowrap; }
+.tear { border-top: 2px dashed var(--line); margin: 0 16px; }
+.pass-foot { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+.kv div { display: flex; flex-direction: column; }
+.kv span { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.kv b { font: 600 .9rem var(--f-mono); font-variant-numeric: tabular-nums; }
+.pass.pending { opacity: .85; }
+.pass.pending .pass-top { background: var(--warn-soft); }
+.pass.pending .pass-top .num { color: var(--warn); }
+
+.btn { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 14px; border-radius: 10px; font: 600 .85rem var(--f-body); background: var(--jade); color: var(--paper); text-decoration: none; }
+.btn.ghost { background: transparent; color: var(--jade); border: 1.5px solid var(--jade); }
+.btn:focus-visible { outline: 2px solid var(--lantern); outline-offset: 2px; }
+.reveal { all: unset; cursor: pointer; font: 600 .9rem var(--f-mono); color: var(--jade); border-bottom: 1px dashed var(--jade); }
+
+/* Filters */
+.filters { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.filters button { all: unset; cursor: pointer; white-space: nowrap; padding: 7px 14px; border-radius: 999px; font: 600 .82rem var(--f-body); background: var(--card); border: 1px solid var(--line); color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.filters button:focus-visible { outline: 2px solid var(--jade); }
+
+.meal { display: flex; flex-direction: column; gap: 12px; }
+.meal-h { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-radius: 12px; background: var(--card); box-shadow: var(--shadow); }
+.meal-h .dates { margin-left: auto; }
+.spot { gap: 8px; }
+.famous { display: flex; flex-direction: column; gap: 1px; padding: 10px 12px; border-radius: 10px; background: var(--lantern-soft); }
+.famous .vn { font-size: 1.1rem; font-weight: 700; }
+.famous .muted { font-size: .85rem; }
+.spot .where { font-size: .84rem; color: var(--muted); }
+/* Tiles and tap-to-reveal cards */
+.tiles { display: grid; gap: 10px; }
+.tiles.three { grid-template-columns: repeat(3, 1fr); }
+.tiles.two { grid-template-columns: repeat(2, 1fr); }
+.tiles.two > .tile:last-child:nth-child(odd) { grid-column: span 2; aspect-ratio: auto; min-height: 96px; }
+.tile { --g1: #E9A86B; --g2: #9C5B3B; all: unset; box-sizing: border-box; cursor: pointer; position: relative; overflow: hidden; aspect-ratio: 1; max-width: 100%; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; padding: 14px; border-radius: 18px; color: #FFF8EE;
+  background: linear-gradient(180deg, rgba(20,10,8,0) 35%, rgba(20,10,8,.45) 100%), radial-gradient(120% 90% at 0% 0%, rgba(255,240,210,.35), transparent 55%), linear-gradient(145deg, var(--g1), var(--g2));
+  border: 1px solid rgba(255,235,210,.25); box-shadow: 0 6px 18px rgba(40,15,10,.3); transition: transform .15s, box-shadow .15s; }
+.tiles.two .tile { aspect-ratio: 1.25; }
+.tile > svg { position: relative; width: 30px; height: 30px; color: #FFF3DD; }
+svg .fill { fill: currentColor; fill-opacity: .28; stroke: none; }
+.tile > svg { width: 34px; height: 34px; }
+.tile-art { position: absolute; right: -14%; bottom: -16%; width: 72%; opacity: .16; pointer-events: none; transform: rotate(-12deg); }
+.tile-art svg { width: 100%; height: auto; color: #FFFFFF; display: block; stroke-width: 1.2; }
+.tile > span:last-child { position: relative; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tile b { font: 700 1.02rem/1.15 var(--f-display); color: #FFFFFF; text-shadow: 0 1px 6px rgba(40,15,10,.35); }
+.tile small { font-size: .72rem; color: rgba(255,246,232,.85); }
+.tile em { font-style: normal; font-size: .7rem; line-height: 1.3; color: rgba(255,246,232,.75); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 2px; }
+.tiles.three .tile em { display: none; }
+.tile:active { transform: scale(.97); }
+.tile[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--lantern), 0 8px 22px rgba(40,15,10,.35); }
+.tile[data-k="b"] { --g1: #F6B26B; --g2: #D9694F; }
+.tile[data-k="l"] { --g1: #E9C46A; --g2: #3F8F86; }
+.tile[data-k="d"] { --g1: #7A62A8; --g2: #2B2650; }
+.tile[data-k="raffy"] { --g1: #F7A072; --g2: #D9567F; }
+.tile[data-k="relax"] { --g1: #5FB3A1; --g2: #2A6F80; }
+.tile[data-k="active"] { --g1: #86AD62; --g2: #3B6646; }
+.tile[data-k="sights"] { --g1: #D9A05B; --g2: #8E4E33; }
+.tile[data-k="shop"] { --g1: #E57A9C; --g2: #8A4790; }
+.tile[data-k="taste"] { --g1: #F0A35A; --g2: #B44D3F; }
+.tile[data-k="night"] { --g1: #5B5EA6; --g2: #23244A; }
+.tile[data-k="drinks"] { --g1: #E07A5F; --g2: #6E3A63; }
+.tile[data-k="local"] { --g1: #C7A46A; --g2: #5F7F5C; }
+.tile:focus-visible { outline: 2px solid var(--lantern); outline-offset: 2px; }
+.list-h { display: flex; align-items: baseline; gap: 10px; padding-top: 4px; scroll-margin-top: 12px; text-shadow: 0 1px 3px rgba(20,8,6,.9), 0 2px 14px rgba(20,8,6,.8); }
+.hint { font-size: .85rem; color: var(--ink); text-align: center; text-shadow: 0 1px 3px rgba(20,8,6,.9), 0 2px 14px rgba(20,8,6,.8); }
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+details > summary:focus-visible { outline: 2px solid var(--lantern); outline-offset: 3px; border-radius: 8px; }
+.chev-d { flex: none; color: var(--muted); transition: transform .2s; }
+details[open] > summary .chev-d { transform: rotate(90deg); }
+.spot > summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.sum { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.spot .sum .vn { font-size: .95rem; }
+.famous-s { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
+.famous-s .eyebrow { font-size: .62rem; color: var(--lantern); }
+.cost { flex: none; margin-left: auto; font: 600 .78rem var(--f-mono); color: var(--lantern); background: var(--lantern-soft); padding: 3px 8px; border-radius: 8px; white-space: nowrap; }
+.cost small { font-size: .66rem; color: var(--muted); }
+.cost.free { color: var(--jade); background: var(--jade-soft); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.tr-dir { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.tr-dir button { all: unset; box-sizing: border-box; cursor: pointer; text-align: center; padding: 8px 6px; border-radius: 10px; font: 600 .8rem var(--f-body); border: 1px solid var(--line); color: var(--muted); }
+.tr-dir button[aria-pressed="true"] { background: var(--lantern-soft); border-color: var(--lantern); color: var(--ink); }
+.tr-dir button:focus-visible { outline: 2px solid var(--lantern); }
+#tr-in { width: 100%; font: 500 1rem/1.4 var(--f-body); padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: rgba(0,0,0,.25); color: var(--ink); resize: vertical; }
+#tr-in:focus { outline: none; border-color: var(--lantern); }
+.tr-out { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start; padding: 12px; border-radius: 12px; background: var(--lantern-soft); }
+.tr-acts { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.speak-btn { background: var(--lantern-soft); color: var(--lantern); text-decoration: none; }
+.speak-btn[hidden] { display: none !important; }
+.tr-big { font-size: 1.3rem; line-height: 1.35; font-weight: 600; color: var(--ink); }
+.tr-big.vn { color: var(--ink); }
+.kit-group { display: flex; flex-direction: column; gap: 6px; }
+.kit-group + .kit-group { padding-top: 6px; }
+.kit-group .eyebrow { color: var(--lantern); }
+.kit-row { font-size: .88rem; line-height: 1.5; }
+.btn.sm { width: fit-content; padding: 7px 12px; font-size: .8rem; }
+.place-links { gap: 6px; }
+.rate-status { font-size: .78rem; }
+.btn.sm svg { width: 16px; height: 16px; }
+.cost-line { font: 500 .8rem var(--f-mono); color: var(--lantern); }
+.spot-body { display: flex; flex-direction: column; gap: 8px; padding-top: 10px; margin-top: 10px; border-top: 1px solid var(--line); }
+.kit > summary { justify-content: flex-start; }
+.kit > summary .chev-d { margin-left: auto; }
+.kit .ki svg { width: 26px; height: 26px; color: var(--lantern); display: block; }
+.kit .sum .muted { font-size: .8rem; }
+details.day > summary { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+details.day > summary .sum { flex-direction: row; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+details.day[open] { gap: 10px; }
+.more > summary { display: inline-flex; align-items: center; gap: 4px; font-size: .82rem; font-weight: 600; color: var(--jade); }
+.more p { font-size: .85rem; padding-top: 6px; }
+.tip { font-size: .85rem; padding: 8px 12px; border-radius: 10px; background: var(--jade-soft); }
+.filters.cats button { font-weight: 500; font-size: .78rem; padding: 6px 12px; }
+.city-tag { font: 600 .68rem var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+/* Toolkit */
+.conv { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field label { font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.field input { font: 600 1.15rem var(--f-mono); padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--paper); color: var(--ink); width: 100%; font-variant-numeric: tabular-nums; }
+.field input:focus { outline: none; border-color: var(--jade); }
+.prices { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; font-size: .86rem; }
+.prices b { font: 500 .84rem var(--f-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.phrase { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
+.phrase:first-child { border-top: 0; }
+.phrase .vn { font-size: 1.1rem; }
+.copy { all: unset; cursor: pointer; font: 600 .74rem var(--f-body); color: var(--jade); padding: 6px 10px; border-radius: 8px; background: var(--jade-soft); }
+.check { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--line); cursor: pointer; }
+.check:first-of-type { border-top: 0; }
+.check input { width: 20px; height: 20px; accent-color: var(--jade); margin-top: 1px; flex: none; }
+.check.done span { color: var(--muted); text-decoration: line-through; }
+.urgent { font: 700 .66rem var(--f-mono); color: var(--lotus); letter-spacing: .06em; }
+.sos { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; font-size: .9rem; }
+.sos b { font: 700 .95rem var(--f-mono); text-align: right; user-select: all; }
+
+/* Tab bar */
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--card); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.tabs-in { max-width: 640px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); }
+.tabs button { all: unset; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 9px 0 10px; font: 600 .7rem var(--f-body); color: var(--muted); }
+.tabs button svg { width: 24px; height: 24px; }
+.tabs button[aria-current="page"] { color: var(--jade); }
+.tabs button[aria-current="page"] svg { stroke-width: 2.4; }
+.tabs button:focus-visible { outline: 2px solid var(--jade); outline-offset: -4px; border-radius: 10px; }
+.toast { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 8px 14px; border-radius: 10px; font-size: .85rem; z-index: 30; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="app" id="app"></div>
+<div class="toast" id="toast" hidden></div>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="tabs-in">
+    <button data-tab="trip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.3-6-11a6 6 0 0 1 12 0c0 5.7-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>Trip</button>
+    <button data-tab="flights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5 3 11l1.5-1.5 7.5 1L16.5 6a2 2 0 0 1 3 3L15 13.5l1 7.5-1.5 1.5-2.5-7.5-3 3V21l-1.5 1-1-3.5-3.5-1L4 16h2.5z"/></svg>Flights</button>
+    <button data-tab="eat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18a9 9 0 0 1-18 0z"/><path d="M8 8c0-2 2-2 2-4M12 8c0-2 2-2 2-4M16 8c0-2 2-2 2-4"/></svg>Eat</button>
+    <button data-tab="do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>Do</button>
+    <button data-tab="kit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg>Toolkit</button>
+  </div>
+</nav>
+
+<script>
+const TRIP = {
+  depart: new Date('2026-10-31T01:30:00+11:00'),
+  people: [
+    { n: 'Anders', c: '' }, { n: 'Amanda', c: '' }, { n: "Amanda's parents", c: 'parents' },
+    { n: 'Reynold', c: '' }, { n: 'Lorina', c: '' }, { n: 'Raffy, 2', c: 'raffy' }
+  ],
+  stages: [
+    { id: 'hcm1', city: 'Ho Chi Minh City', vn: 'Sài Gòn', dates: 'Sat 31 Oct → Mon 2 Nov', start: '2026-10-31', end: '2026-11-02',
+      stay: { name: 'Central Palace Hotel', nights: '2 nights · District 1' },
+      weather: 'About 32°C. End of the wet season, so expect short afternoon downpours.',
+      days: [
+        { d: 'Sat 31 Oct', t: 'Land & recover', slots: [
+          ['Dawn', '<span class="flightpill">VJ082 · MEL 01:30 → SGN 05:55</span>', 'Taxi or Grab to Central Palace (about 30 minutes). Early check-in, or booking the night of the 30th, would let everyone sleep straight away.'],
+          ['Midday', '<b>A long lunch nearby</b>', 'Cơm tấm or hủ tiếu close to the hotel could be an easy first meal after some sleep.', ['raffy','easy']],
+          ['Evening', '<b>Saigon river water bus at sunset</b>', 'Easy and seated, if anyone has energy. An early night is just as good.', ['raffy','easy']] ] },
+        { d: 'Sun 1 Nov', t: 'First full day', slots: [
+          ['Morning', '<b>Saigon Zoo & Botanical Gardens</b>', 'Shady and flat, and coolest around the 8am opening. Independence Palace is another nearby option.', ['raffy','easy']],
+          ['Midday', '<b>Bánh Xèo 46A for lunch</b>', 'Giant crispy pancakes, then back to the hotel for a rest.', ['raffy','parents']],
+          ['Evening', '<b>Nguyễn Huệ walking street</b>', 'Where Saigon families stroll on a Sunday night, with buskers and toy cars for kids.', ['raffy','easy']] ] },
+        { d: 'Mon 2 Nov', t: 'Fly to Da Nang', slots: [
+          ['Morning', '<b>Breakfast & check out</b>', 'Leaving for the airport around 09:30 keeps things relaxed.'],
+          ['Midday', '<span class="flightpill">VJ640 · SGN 12:15 → DAD 13:35</span>', 'Be at Tan Son Nhat by 10:15. Check the terminal (T1 or T3) in the VietJet app the day before.'] ] }
+      ] },
+    { id: 'dad', city: 'Da Nang & Hoi An', vn: 'Đà Nẵng · Hội An', dates: 'Mon 2 → Sun 8 Nov', start: '2026-11-02', end: '2026-11-08',
+      stay: { name: 'Hyatt Regency Danang Resort', nights: '6 nights · Non Nước beach' },
+      weather: 'Peak rain and flood season in central Vietnam. Days below can swap around to dodge the rain.',
+      note: 'The Hyatt sits between Da Nang and Hoi An. Marble Mountains is next door, Hoi An is about 20 minutes south, and central Da Nang is about 20 minutes north. Its pools are an easy fallback on slow days.',
+      days: [
+        { d: 'Mon 2 Nov', t: 'Arrive', slots: [
+          ['Afternoon', '<b>Check in at the Hyatt</b>', 'Land 13:35, about 25 minutes by car. The pool and Non Nước beach are right there for anyone who wants them.'],
+          ['Evening', '<b>Seafood at Bé Mặn</b>', 'About 20 minutes up the beach road, with big tables for all seven. Or keep it easy after the travel day and eat at the Hyatt.', ['parents']] ] },
+        { d: 'Tue 3 Nov', t: 'Son Tra & the city', slots: [
+          ['Morning', '<b>Lady Buddha, Son Tra peninsula</b>', 'You can drive right up, with views over the whole bay.', ['parents','easy']],
+          ['Midday', '<b>Mì Quảng for lunch</b>', 'Mì Quảng Bà Mua is an easy, air-conditioned option before heading back for a rest.', ['raffy']],
+          ['Evening', '<b>Han Market & riverside</b>', 'Snacks and a walk along the Han river, with the bridges lit up.', ['easy']] ] },
+        { d: 'Wed 4 Nov', t: 'Hoi An', slots: [
+          ['Morning', '<b>Coconut basket boats, Cam Thanh</b>', 'Spinning bamboo boats that Raffy would probably love.', ['raffy']],
+          ['Midday', '<b>Cơm gà Bà Buội</b>', 'Hoi An chicken rice, then shade or a café while Raffy naps.', ['raffy','parents']],
+          ['Evening', '<b>Old town & lantern boat</b>', 'Floating a lantern on the Thu Bon river after dark is a lovely way to end a Hoi An day.', ['raffy','parents','easy']] ] },
+        { d: 'Thu 5 Nov', t: 'Ba Na Hills, if it is clear', slots: [
+          ['Morning', '<b>Golden Bridge by cable car</b>', 'Best on a clear morning. If it is cloudy, this could swap with another day.', ['raffy','parents']],
+          ['Afternoon', '<b>Pool & rest</b>', 'Ba Na is a big day for little legs.', ['raffy','easy']] ] },
+        { d: 'Fri 6 Nov', t: 'Marble Mountains', slots: [
+          ['Morning', '<b>Marble Mountains</b>', 'Caves and pagodas, a few minutes from the Hyatt. A lift on Thuy Son saves the steep stairs.', ['parents']],
+          ['Afternoon', '<b>Museum of Cham Sculpture or the beach</b>', 'The museum is indoors and calm if it rains. The beach if it is sunny.', ['parents','easy']] ] },
+        { d: 'Sat 7 Nov', t: 'Open day', slots: [
+          ['Day', '<b>Family visits, Hoi An again, or the beach</b>', 'Left open on purpose for whatever the family feels like.', ['parents']],
+          ['Evening', '<b>Dragon Bridge fire show, 9pm</b>', 'The bridge breathes fire and water on Saturday nights. A riverside café makes a good viewing spot.', ['raffy','easy']] ] },
+        { d: 'Sun 8 Nov', t: 'Fly to Phu Quoc', slots: [
+          ['Morning', '<b>Breakfast & check out</b>', 'Leaving for the airport around 10:00 keeps things relaxed.'],
+          ['Midday', '<span class="flightpill">VJ715 · DAD 12:40 → PQC 14:25</span>', 'Be at Da Nang airport by 10:40.'] ] }
+      ] },
+    { id: 'pqc', city: 'Phu Quoc', vn: 'Phú Quốc', dates: 'Sun 8 → Thu 12 Nov', start: '2026-11-08', end: '2026-11-12',
+      stay: { name: 'Lahana Resort Phu Quoc', nights: '4 nights · Dương Đông' },
+      weather: 'Start of the dry season. About 30°C, calm seas, the best beach weather of the trip.',
+      days: [
+        { d: 'Sun 8 Nov', t: 'Arrival day', slots: [
+          ['Midday', '<span class="flightpill">VJ715 · DAD 12:40 → PQC 14:25</span>', 'Be at Da Nang airport by 10:40.'],
+          ['Afternoon', '<b>Check in at Lahana</b>', 'About 15 minutes from the airport. The hillside pool looks out over Dương Đông, a nice spot to unwind after the flight.'],
+          ['Evening', '<b>Duong Dong night market</b>', 'A short ride down the hill. You pick live seafood and they cook it on the spot. Flat and stroller-friendly.', ['parents','easy']] ] },
+        { d: 'Mon 9 Nov', t: 'North island', slots: [
+          ['Morning', '<b>Vinpearl Safari</b>', 'Coolest around the 9am opening. Open-air animal areas and a bus safari, so little walking.', ['raffy','parents']],
+          ['Midday', '<b>Lunch & a rest</b>', 'Back at the hotel, or in the shade at the park.', ['raffy']],
+          ['Evening', '<b>Grand World</b>', 'Venice-style canals, gondola rides, lights and night shows, next door to the Safari.', ['raffy','easy']] ] },
+        { d: 'Tue 10 Nov', t: 'South island', slots: [
+          ['Morning', '<b>Hon Thom cable car</b>', 'One of the world\'s longest sea-crossing cable cars, with views over the An Thoi islands.', ['parents','easy']],
+          ['Midday', '<b>Aquatopia or the beach on Hon Thom</b>', 'A water park with a kids\' zone, or just the beach.', ['raffy','beach']],
+          ['Evening', '<b>Sunset Town & Kiss Bridge</b>', 'Sunset, then maybe the "Kiss of the Sea" show (check show nights).', ['easy']] ] },
+        { d: 'Wed 11 Nov', t: 'Slow day', slots: [
+          ['Morning', '<b>Sao Beach</b>', 'White sand and calm, shallow water. Great for a toddler.', ['raffy','beach']],
+          ['Midday', '<b>Crab lunch at Ham Ninh</b>', 'Fresh steamed crab on a pier over the water.', ['parents']],
+          ['Afternoon', '<b>Pepper farm & fish sauce house</b>', 'Short visits to see how Phu Quoc pepper and nước mắm are made. Good for gifts.', ['parents','easy']] ] },
+        { d: 'Thu 12 Nov', t: 'Fly to Saigon', slots: [
+          ['Morning', '<b>Breakfast & check out</b>', 'Leaving for the airport around 9:30 keeps things relaxed.'],
+          ['Midday', '<span class="flightpill">VN1824 · PQC 12:05 → SGN 13:15</span>', 'Be at Phu Quoc airport by 10:05. Arrives at Tan Son Nhat T3.'] ] }
+      ] },
+    { id: 'hcm2', city: 'Ho Chi Minh City', vn: 'Sài Gòn', dates: 'Thu 12 → Sun 15 Nov', start: '2026-11-12', end: '2026-11-16',
+      stay: { name: 'The Prince Hotel', nights: '12 – 14 Nov', warn: 'You fly home at 11:05 on Sun 15 Nov. Check the night of Sat 14 Nov is booked too.' },
+      weather: 'Drier by mid-November, about 32°C.',
+      days: [
+        { d: 'Thu 12 Nov', t: 'Back in Saigon', slots: [
+          ['Afternoon', '<b>Check in at The Prince</b>', 'Land 13:15 at T3, then taxi or Grab into the city.'],
+          ['Evening', '<b>River water bus & Bến Thành Street Food Market</b>', 'A sunset boat, then a food hall where everyone can pick something different.', ['raffy','easy']] ] },
+        { d: 'Fri 13 Nov', t: 'Mekong Delta, if you fancy it', slots: [
+          ['Morning', '<b>Drive to Bến Tre (about 2 hours)</b>', 'A private car and guide for all seven would make it much easier with a toddler.', ['parents']],
+          ['Midday', '<b>Sampans through the coconut canals</b>', 'Coconut-candy workshops, fruit orchards and a riverside lunch of elephant-ear fish.', ['raffy','parents']],
+          ['Evening', '<b>Easy dinner back in Saigon</b>', 'Raffy will likely sleep in the car on the way back. Or skip the trip and keep the day free in the city.', ['easy']] ] },
+        { d: 'Sat 14 Nov', t: 'Last full day', slots: [
+          ['Morning', '<b>Shopping & gifts in Cholon</b>', 'Bình Tây Market for coffee, tea, pepper and dried fruit at local prices, then Thiên Hậu Temple.', ['parents']],
+          ['Midday', '<b>Lunch, rest & packing</b>', 'Your international fare includes 40 kg of checked baggage.', ['raffy']],
+          ['Evening', '<b>Farewell family dinner</b>', 'Perhaps a river dinner cruise, or a restaurant of the parents\' choice.', ['parents']] ] },
+        { d: 'Sun 15 Nov', t: 'Fly home', slots: [
+          ['Morning', '<b>Breakfast & check out</b>', 'Leave by about 07:15 to be at Tan Son Nhat international terminal (T2) by 08:05. Airport traffic can be slow.'],
+          ['Midday', '<span class="flightpill">VJ081 · SGN 11:05 → MEL 23:35</span>', 'Lands in Melbourne at 23:35 Sunday night.'] ] }
+      ] }
+  ],
+  flights: [
+    { num: 'VJ082', fa: 'VJC82', fr: 'vj82', airline: 'VietJet Air · Deluxe', from: 'MEL', fromC: 'Melbourne · T2', to: 'SGN', toC: 'Saigon · T2', date: 'Sat 31 Oct 2026', dep: '01:30', arr: '05:55', ref: 'RZHB9Z', by: '22:30 Fri 30 Oct',
+      bag: 'Leaves just after midnight, so you go to the airport on Friday night. Deluxe fare: 40 kg checked bag and a combo meal. Anders: seat 46H.', site: 'https://www.vietjetair.com' },
+    { num: 'VJ640', fa: 'VJC640', fr: 'vj640', airline: 'VietJet Air · Economy', from: 'SGN', fromC: 'Saigon', to: 'DAD', toC: 'Da Nang', date: 'Mon 2 Nov 2026', dep: '12:15', arr: '13:35', ref: 'MBQJX6', by: '10:15',
+      bag: 'Booked on Booking.com. Check whether checked bags are included, as VietJet Economy often covers only 7 kg of carry-on.', site: 'https://www.vietjetair.com' },
+    { num: 'VJ715', fa: 'VJC715', fr: 'vj715', airline: 'VietJet Air', from: 'DAD', fromC: 'Da Nang · T1', to: 'PQC', toC: 'Phu Quoc', date: 'Sun 8 Nov 2026', dep: '12:40', arr: '14:25', ref: 'AZN49R', by: '10:40',
+      bag: '20 kg checked · 7 kg carry-on total (they do weigh it)', site: 'https://www.vietjetair.com' },
+    { num: 'VN1824', fa: 'HVN1824', fr: 'vn1824', airline: 'Vietnam Airlines', from: 'PQC', fromC: 'Phu Quoc', to: 'SGN', toC: 'Saigon · T3', date: 'Thu 12 Nov 2026', dep: '12:05', arr: '13:15', ref: 'EL2Y9O', by: '10:05',
+      bag: '23 kg checked · 10 kg carry-on total', site: 'https://www.vietnamairlines.com' },
+    { num: 'VJ081', fa: 'VJC81', fr: 'vj81', airline: 'VietJet Air · Deluxe', from: 'SGN', fromC: 'Saigon · T2', to: 'MEL', toC: 'Melbourne · T2', date: 'Sun 15 Nov 2026', dep: '11:05', arr: '23:35', ref: 'RZHB9Z', by: '08:05',
+      bag: 'Deluxe fare: 40 kg checked bag and a combo meal. Anders: seat 44K. Lands late Sunday night.', site: 'https://www.vietjetair.com' }
+  ],
+  food: [
+    // Saigon
+    { city: 'hcm', meal: 'b', place: 'Phở Lệ', area: '413 Nguyễn Trãi, District 5', dish: 'Phở bò tái nạm', en: 'Beef phở, rare and brisket', note: 'A Cholon institution. Saigon families queue here on weekend mornings. The broth is rich and slightly sweet, southern-style.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'b', place: 'Cơm Tấm Ba Ghiền', area: '84 Đặng Văn Ngữ, Phú Nhuận', dish: 'Cơm tấm sườn', en: 'Broken rice, giant grilled pork chop', note: 'Known for a pork chop the size of the plate. Locals argue it is the best cơm tấm in the city.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'b', place: 'Bánh Mì Hòa Mã', area: '53 Cao Thắng, District 3', dish: 'Bánh mì chảo', en: 'Sizzling pan of eggs, pâté and sausage with bread', note: 'Serving since 1958. Sit on the footpath stools with office workers. A great one for Raffy.', tags: ['raffy'] },
+    { city: 'hcm', meal: 'b', place: 'Cà Phê Vợt Cheo Leo', area: 'Alley 109 Nguyễn Thiện Thuật, District 3', dish: 'Cà phê sữa đá', en: 'Sock-filtered iced coffee with condensed milk', note: 'Brewing coffee through cloth filters since 1938, in a tiny alley café that hardly any tourists find. The parents will love it.', tags: ['parents'] },
+    { city: 'hcm', meal: 'l', place: 'Bánh Xèo 46A', area: '46A Đinh Công Tráng, District 1', dish: 'Bánh xèo', en: 'Giant crispy turmeric pancake', note: 'Pancakes as big as the plate, wrapped in mustard leaves and herbs. Busy with local families at lunch.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'l', place: 'Bún Thịt Nướng Chị Tuyền', area: '195 Cô Giang, District 1', dish: 'Bún thịt nướng chả giò', en: 'Vermicelli, grilled pork and spring rolls', note: 'A cheap, quick favourite with office workers. Not spicy, and kids love the spring rolls.', tags: ['raffy','easy'] },
+    { city: 'hcm', meal: 'l', place: 'Hủ Tiếu Nam Vang Nhân Quán', area: '72 Nguyễn Thượng Hiền, District 3', dish: 'Hủ tiếu Nam Vang', en: 'Phnom Penh-style pork noodle soup', note: 'Clear, gentle broth with pork, prawns and quail egg. Order it dry with the soup on the side.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'l', place: 'Bún Bò Huế Đông Ba', area: '110A Nguyễn Du, District 1', dish: 'Bún bò Huế', en: 'Spicy lemongrass beef noodle soup', note: 'Imperial-city flavours in Saigon. Ask for it less spicy (ít cay).', tags: ['parents'] },
+    { city: 'hcm', meal: 'd', place: 'Ốc Oanh', area: '534 Vĩnh Khánh, District 4', dish: 'Ốc hương rang muối ớt', en: 'Sweet snails roasted with salt & chilli', note: 'The best-known spot on Vĩnh Khánh, District 4\'s seafood street. Loud, packed and very Saigon.', tags: ['parents','adults'] },
+    { city: 'hcm', meal: 'd', place: 'Ốc Đào', area: '212B Nguyễn Trãi, District 1', dish: 'Sò điệp nướng mỡ hành', en: 'Grilled scallops with spring onion oil', note: 'A crowded local favourite for shellfish. Order lots of plates to share.', tags: ['parents'] },
+    { city: 'hcm', meal: 'd', place: 'Hồ Thị Kỷ food alley', area: 'Hồ Thị Kỷ, District 10', dish: 'Street food crawl', en: 'Grilled skewers, bột chiên, chè', note: 'A night market where young Saigonese eat. Everyone picks their own, and there are plenty of mild options for Raffy.', tags: ['raffy','easy'] },
+    { city: 'hcm', meal: 'd', place: 'Quán Bụi', area: '17A Ngô Văn Năm, District 1 (and other branches)', dish: 'Thịt kho trứng', en: 'Caramelised pork and egg in a clay pot', note: 'Southern home cooking in a calm sit-down room. Good for a big family dinner with the parents.', tags: ['parents','raffy','easy'] },
+    // Da Nang
+    { city: 'dad', meal: 'b', place: 'Bún Chả Cá Bà Lữ', area: '319 Hùng Vương, Hải Châu', dish: 'Bún chả cá', en: 'Fish cake noodle soup', note: 'Da Nang\'s own breakfast soup, with fish cakes and a sweet pumpkin broth. Packed with locals by 7am.', tags: ['raffy','parents'] },
+    { city: 'dad', meal: 'b', place: 'Mì Quảng 1A', area: '1A Hải Phòng, Hải Châu', dish: 'Mì Quảng gà', en: 'Turmeric noodles with chicken', note: 'Serving since the 1970s. Locals rate it the benchmark mì Quảng in the city.', tags: ['parents'] },
+    { city: 'dad', meal: 'b', place: 'Chợ Cồn', area: 'Hùng Vương & Ông Ích Khiêm', dish: 'Market food stalls', en: 'Bánh bèo, bánh xèo, chè', note: 'Da Nang\'s locals\' market, not a tourist market. The food hall is cheap and lively.', tags: ['raffy','parents'] },
+    { city: 'dad', meal: 'l', place: 'Quán Mậu', area: '35 Đỗ Thúc Tịnh, Cẩm Lệ', dish: 'Bánh tráng cuốn thịt heo', en: 'Boiled pork rolled in rice paper with herbs', note: 'The city\'s signature dish, done the Đại Lộc way. Roll your own with mắm nêm dipping sauce. Great for a group.', tags: ['raffy','parents'] },
+    { city: 'dad', meal: 'l', place: 'Bánh Xèo Bà Dưỡng', area: 'Alley 280 Hoàng Diệu, Hải Châu', dish: 'Bánh xèo miền Trung', en: 'Small crispy central-style pancakes', note: 'Hidden at the end of an alley, and every Da Nang taxi driver knows it. The peanut-liver dipping sauce is the star.', tags: ['raffy','parents'] },
+    { city: 'dad', meal: 'l', place: 'Mì Quảng Bà Mua', area: '19 Trần Bình Trọng, Hải Châu', dish: 'Mì Quảng tôm thịt', en: 'Turmeric noodles with prawn and pork', note: 'A reliable local chain with air-conditioning. An easy lunch with a toddler.', tags: ['raffy','easy'] },
+    { city: 'dad', meal: 'd', place: 'Hải Sản Năm Đảnh', area: 'Alley 139 Trần Quang Khải, Sơn Trà', dish: 'Ốc & nghêu hấp sả', en: 'Snails and lemongrass-steamed clams', note: 'Hard to find, cheap, and full of locals. Show the driver the address.', tags: ['parents','adults'] },
+    { city: 'dad', meal: 'd', place: 'Hải Sản Bé Mặn', area: 'Võ Nguyên Giáp, Mỹ Khê beach', dish: 'Pick-from-the-tank seafood', en: 'Prawns, clams, squid, grilled or steamed', note: 'Big beachfront tables suit all seven of you. Popular with local families on weekends.', tags: ['parents','raffy','beach'] },
+    { city: 'dad', meal: 'd', place: 'Bún Mắm Vân', area: 'Alley 23 Trần Kế Xương, Hải Châu', dish: 'Bún mắm nêm', en: 'Vermicelli, pork and fermented anchovy sauce', note: 'For the adventurous. A true local taste that the parents will probably adore.', tags: ['parents','adults'] },
+    { city: 'dad', meal: 'b', place: 'Bánh Canh Nga', area: 'Nguyễn Chí Thanh, Hải Châu', dish: 'Bánh canh chả cá', en: 'Thick tapioca noodles with fish cake', note: 'A breakfast queue of office workers and families most mornings. Silky noodles in a peppery fish broth.', tags: ['raffy','parents'] },
+    { city: 'dad', meal: 'l', place: 'Cơm Gà A Hải', area: 'Thái Phiên, Hải Châu', dish: 'Cơm gà xé', en: 'Shredded chicken rice', note: 'Da Nang\'s go-to chicken rice: golden rice, tender chicken and a ginger dipping sauce. Mild and easy for Raffy.', tags: ['raffy','easy'] },
+    { city: 'dad', meal: 'd', place: 'Hải Sản Bé Ni 2', area: 'Hồ Nghinh, Sơn Trà', dish: 'Ốc hương & ghẹ rang me', en: 'Sweet snails and tamarind crab', note: 'Loud, cheap and always full of local families. Pick from the buckets out front.', tags: ['parents'] },
+    // Hoi An
+    { city: 'hoi', meal: 'b', place: 'Mì Quảng Ông Hai', area: 'Trương Minh Lượng, Hội An', dish: 'Mì Quảng', en: 'Turmeric noodles with pork and shrimp', note: 'A tiny family shop that Hoi An locals rate highly, open early and gone by late morning.', tags: ['parents'] },
+    { city: 'hoi', meal: 'b', place: 'Central Market food hall', area: 'Hội An Central Market, Trần Phú', dish: 'Cao lầu & bánh xèo', en: 'Market-stall noodles and crispy pancakes', note: 'The covered food hall where vendors cook the town\'s classics at local prices. Lively first thing in the morning.', tags: ['raffy','parents','easy'] },
+    { city: 'hoi', meal: 'l', place: 'Cơm Gà Bà Nga', area: 'Phan Châu Trinh, Hội An', dish: 'Cơm gà Hội An', en: 'Turmeric chicken rice', note: 'The neighbourhood rival to Bà Buội, preferred by many locals for its sauce and herbs.', tags: ['raffy','easy'] },
+    { city: 'hoi', meal: 'd', place: 'White Rose', area: 'Hai Bà Trưng, Hội An', dish: 'Bánh bao bánh vạc', en: '"White rose" shrimp dumplings', note: 'The family kitchen that makes these delicate dumplings for the whole town. Pair with fried wontons.', tags: ['raffy','parents'] },
+    { city: 'hoi', meal: 'd', place: 'Cửa Đại beach seafood shacks', area: 'Cửa Đại beach', dish: 'Nghêu hấp sả', en: 'Lemongrass-steamed clams', note: 'Plastic chairs on the sand where Hoi An families eat seafood at sunset. Simple and fresh.', tags: ['parents','beach'] },
+    // Phu Quoc additions
+    { city: 'pqc', meal: 'b', place: 'Bún Quậy Thanh Hùng', area: 'Dương Đông', dish: 'Bún quậy', en: '"Stirred" fish and prawn noodles', note: 'The other bún quậy institution. Islanders argue over whether it beats Kiến Xây.', tags: ['raffy','parents'] },
+    { city: 'pqc', meal: 'b', place: 'Riverside coffee & bánh mì carts', area: 'Dương Đông river mouth', dish: 'Cà phê sữa đá & bánh mì', en: 'Iced milk coffee and a fresh baguette', note: 'Where fishermen and locals start the day, watching the boats come in.', tags: ['easy','parents'] },
+    { city: 'pqc', meal: 'l', place: 'Rạch Vẹm floating restaurants', area: 'Rạch Vẹm, north coast', dish: 'Hải sản nướng', en: 'Grilled seafood over the water', note: 'Stilt restaurants beside Starfish beach, serving fish and squid caught that morning.', tags: ['parents','raffy','beach'] },
+    { city: 'pqc', meal: 'l', place: 'Bún kèn stalls, Dương Đông', area: 'Around Dương Đông market', dish: 'Bún kèn', en: 'Fish and coconut curry noodles', note: 'Phu Quoc\'s own noodle dish, mild, creamy and rarely found off the island.', tags: ['raffy','parents'] },
+    { city: 'pqc', meal: 'd', place: 'Chuồn Chuồn Bistro', area: 'Hilltop above Dương Đông', dish: 'Vietnamese plates at sunset', en: 'Local favourites with a view', note: 'A short ride from Lahana, with sweeping sunset views. Relaxed for a family dinner.', tags: ['parents','raffy','easy'] },
+    { city: 'pqc', meal: 'd', place: 'Long Beach seafood grills', area: 'Trần Hưng Đạo, Bãi Trường', dish: 'Mực & tôm nướng', en: 'Grilled squid and prawns', note: 'Family-run grills along the beach road where locals pick seafood by weight.', tags: ['parents','beach'] },
+    // Hoi An originals
+    { city: 'hoi', meal: 'b', place: 'Bánh Mì Madam Khánh', area: '115 Trần Cao Vân', dish: 'Bánh mì thập cẩm', en: 'Bánh mì with everything', note: 'Many locals prefer it to Phượng: softer bread and a sweeter sauce, with a shorter queue.', tags: ['raffy'] },
+    { city: 'hoi', meal: 'b', place: 'Bánh Mì Phượng', area: '2B Phan Châu Trinh', dish: 'Bánh mì đặc biệt', en: 'The "special" bánh mì', note: 'Famous for a reason. Go early to beat the tour groups.', tags: ['raffy'] },
+    { city: 'hoi', meal: 'l', place: 'Cơm Gà Bà Buội', area: '22 Phan Châu Trinh', dish: 'Cơm gà Hội An', en: 'Turmeric chicken rice', note: 'Selling chicken rice for decades, and the Hoi An standard. A safe bet for Raffy.', tags: ['raffy','parents','easy'] },
+    { city: 'hoi', meal: 'l', place: 'Cao Lầu Thanh', area: '26 Thái Phiên', dish: 'Cao lầu', en: 'Chewy noodles, char siu, crackling', note: 'Cao lầu exists only in Hoi An. Locals come here, away from the old-town crowds.', tags: ['parents'] },
+    { city: 'hoi', meal: 'l', place: 'Bánh Xèo Bale Well', area: '45/51 Trần Hưng Đạo', dish: 'Set menu of DIY rolls', en: 'Bánh xèo, grilled pork skewers, rice paper', note: 'No menu: the food just keeps coming. Fun for a big group, with a well-known local owner.', tags: ['raffy','parents'] },
+    { city: 'hoi', meal: 'd', place: 'Cẩm Nam island stalls', area: 'Across Cẩm Nam bridge', dish: 'Bánh đập & hến trộn', en: '"Smashed" rice crackers with baby clams', note: 'Where Hoi An people go for an evening snack by the river, just over the bridge from the old town.', tags: ['parents'] },
+    { city: 'hoi', meal: 'd', place: 'Hoi An night market', area: 'Nguyễn Hoàng, An Hội', dish: 'Grilled skewers & mango cake', en: 'Street snacks under the lanterns', note: 'Touristy but fun after the lantern boat. Easy for Raffy.', tags: ['raffy','easy'] },
+    // Phu Quoc
+    { city: 'pqc', meal: 'b', place: 'Bún Quậy Kiến Xây', area: '28 Bạch Đằng, Dương Đông', dish: 'Bún quậy', en: '"Stirred" noodles with fish and prawn paste', note: 'You mix your own sauce at the counter. Islanders have eaten breakfast here for years.', tags: ['raffy','parents'] },
+    { city: 'pqc', meal: 'b', place: 'Dương Đông morning market', area: 'Chợ Dương Đông, by the river', dish: 'Bún kèn', en: 'Fish and coconut curry noodles', note: 'A Phu Quoc-only dish, made at the market\'s noodle stalls. Locals shop here, so go before 9am.', tags: ['parents'] },
+    { city: 'pqc', meal: 'l', place: 'Nhà Hàng Ra Khơi', area: '131 Đường 30/4, Dương Đông', dish: 'Gỏi cá trích', en: 'Raw herring salad with coconut & herbs', note: 'A family seafood restaurant locals use for celebrations. Roll the herring in rice paper.', tags: ['parents'] },
+    { city: 'pqc', meal: 'l', place: 'Hàm Ninh pier restaurants', area: 'Hàm Ninh fishing village', dish: 'Ghẹ Hàm Ninh hấp', en: 'Steamed blue crab, salt-pepper-lime dip', note: 'Sweet little crabs from the bay below you, eaten at tables over the water.', tags: ['parents','raffy'] },
+    { city: 'pqc', meal: 'd', place: 'Hải Sản Xin Chào', area: '66 Trần Hưng Đạo, Dương Đông', dish: 'Grilled seafood on the sand', en: 'Squid, prawns, scallops', note: 'Seaside tables at sunset. Popular with Vietnamese holidaymakers as well as foreigners.', tags: ['parents','raffy','beach'] },
+    { city: 'pqc', meal: 'd', place: 'Dinh Cậu night market', area: 'Võ Thị Sáu, Dương Đông', dish: 'Nhum nướng mỡ hành', en: 'Grilled sea urchin with spring onion oil', note: 'More touristy, but the stroll, the snacks and the ice cream rolls keep everyone happy.', tags: ['raffy','easy'] }
+  ],
+  // [city, category, name, what, tags, tip]
+  activities: [
+    // Saigon
+    ['hcm','relax','Miu Miu Spa','Locally loved, good-value massage. Book a 90-minute session the day you land to undo the overnight flight.',['parents'],'Branches in District 1 and 3. Book a day ahead.'],
+    ['hcm','relax','Café apartments, 42 Nguyễn Huệ','An old apartment block with a café on every floor. Pick a balcony over the walking street and watch the city go by.',['parents','easy'],'Small lift (paid). The upper floors have the best views.'],
+    ['hcm','active','Mekong Delta day trip','Sampan rides through coconut canals, honey farms and coconut-candy workshops around Bến Tre. About 2 hours each way.',['raffy','parents'],'Book a private car and guide for all seven. It is much easier with a toddler.'],
+    ['hcm','active','Cu Chi Tunnels','Crawl through the wartime tunnel network and see the hidden trapdoors. A half-day trip.',['adults'],'Go to Ben Duoc, as it is less crowded than Ben Dinh.'],
+    ['hcm','sights','Independence Palace','The 1960s palace where the war ended, frozen in time: war rooms, a rooftop helipad and tanks on the lawn.',['parents','easy'],'The grounds are flat and good for strollers.'],
+    ['hcm','sights','Jade Emperor Pagoda','Incense-filled Taoist temple full of carved deities. Locals come here to pray for children.',['parents'],'Free. Dress modestly.'],
+    ['hcm','sights','War Remnants Museum','Powerful and confronting. The most important museum in the city for understanding the war.',['adults'],'Some rooms are graphic, so take Raffy for a walk outside.'],
+    ['hcm','raffy','Saigon Zoo & Botanical Gardens','One of the oldest zoos in Asia. Shady, flat, with elephants, giraffes and big trees.',['raffy','easy'],'Go at 8am opening before the heat.'],
+    ['hcm','raffy','Đầm Sen Water Park','Pools, slides and a big kids\' splash zone, where Saigon families go on weekends.',['raffy'],'Pack swim nappies.'],
+    ['hcm','raffy','tiNiWorld indoor play','Vietnam\'s favourite indoor playground chain, inside the big malls. Air-conditioned and safe.',['raffy','easy'],'A good rainy-afternoon backup.'],
+    ['hcm','shop','Bình Tây Market','Cholon\'s grand old wholesale market, newly restored. Dried fruit, tea, spices and ceramics at local prices.',['parents'],'The parents can haggle. Go in the morning.'],
+    ['hcm','shop','Ben Thanh Market','The classic. Coffee, lacquerware, fabric and souvenirs, with a food hall inside.',['parents','easy'],'Agree a price before you pay.'],
+    ['hcm','shop','Saigon Centre / Takashimaya','A polished mall with air-conditioning, a basement food hall and Vietnamese brands.',['easy','raffy'],'Good for rainy hours and clean toilets.'],
+    ['hcm','taste','Saigon coffee crawl','Sock-filtered coffee in an alley at Cheo Leo, coconut coffee at Cộng Cà Phê, and a salted coffee to finish. Saigon runs on coffee.',['parents','easy'],'Spread over a morning, with plenty of stops to sit down.'],
+    ['hcm','taste','Chè dessert crawl in Cholon','Sweet soups, jellies and grass jelly in Chinatown. Chè Hà Ký is a long-time favourite with Saigon families.',['raffy','parents'],'An easy afternoon treat that Raffy can share.'],
+    ['hcm','taste','Tropical fruit tasting','Pick a bag of fruit at a local market and taste your way through: rambutan, dragon fruit, mangosteen, pomelo and, for the brave, durian.',['raffy','easy'],'Amanda\'s parents will know which stalls have the best fruit.'],
+    ['hcm','night','Nguyễn Huệ walking street','A wide pedestrian boulevard where Saigon families stroll, buskers play and kids ride toy cars.',['raffy','easy'],'Best after 7pm.'],
+    ['hcm','night','Rooftop drinks','Watch the skyline at Chill Skybar, or at the calmer Social Club rooftop at Hôtel des Arts.',['adults'],'Smart casual. No thongs at Chill.'],
+    ['hcm','local','Tao Dan Park bird café','Retired men hang their songbird cages in the trees and sip coffee while the birds sing.',['parents','easy'],'Early morning only, best on Sundays.'],
+    ['hcm','local','Cholon temples','Thiên Hậu Temple and its giant incense coils, in the heart of Chinatown.',['parents','easy'],'Pair it with Bình Tây Market.'],
+    // Da Nang
+    ['dad','relax','Sunrise swim at Mỹ Khê','Locals swim at 5–6am before work. Join them for warm water and a pink sky.',['beach','parents'],'Check the flags, as seas can be rough in November.'],
+    ['dad','relax','Charm Spa Grand','A well-reviewed, good-value spa near the Han river with family-sized rooms.',['parents'],'Book ahead for a group.'],
+    ['dad','active','Hải Vân Pass drive','The famous coastal mountain road north of the city. Stop at the top for the view, then have lunch at Lăng Cô lagoon.',['parents'],'Private car or jeep tour. Only on a clear day.'],
+    ['dad','active','Ba Na Hills & Golden Bridge','Record-breaking cable car up to the bridge held by giant stone hands, plus a French village and rides.',['raffy','parents'],'A full day, and cloud often hides it in November. Go on the clearest morning.'],
+    ['dad','active','Son Tra peninsula','Wind up the jungle road to spot rare red-shanked douc langurs, the "costumed apes".',['parents'],'Early morning is best for monkeys.'],
+    ['dad','sights','Marble Mountains','Five limestone hills with caves, shrines and pagodas inside. Huyền Không cave is magical.',['parents'],'Use the lift on Thủy Sơn to skip the steep stairs.'],
+    ['dad','sights','Museum of Cham Sculpture','The world\'s best collection of Cham art, from Hindu kingdoms over 1,000 years old.',['parents','easy'],'Indoors, so a great rain plan.'],
+    ['dad','sights','Lady Buddha & Linh Ứng Pagoda','A 67 m white statue looking over the bay, with views back to the city.',['parents','easy'],'Drive right up.'],
+    ['dad','raffy','Mikazuki Water Park 365','A huge indoor, heated Japanese-style water park. It works whatever the weather.',['raffy'],'Your best rainy-day rescue in Da Nang.'],
+    ['dad','raffy','Asia Park / Sun World','A big Ferris wheel (the Sun Wheel), gentle rides and a lit-up park at night.',['raffy','easy'],'Opens late afternoon. Go after the nap.'],
+    ['dad','shop','Hàn Market','Locals buy dried squid, coffee, cashews and fabric here. Upstairs is packed with clothing stalls, including plenty of copy brands.',['parents'],'Upstairs also has tailors. Bargain for the clothes.'],
+    ['dad','shop','Non Nước marble village','Stone carvers at the foot of the Marble Mountains, making everything from tiny Buddhas to lions.',['parents'],'Small pieces travel fine. They can ship big ones.'],
+    ['dad','night','Dragon Bridge fire show','The bridge breathes fire and water at 9pm on Saturday and Sunday nights.',['raffy','easy'],'Watch from the east bank, or a riverside café.'],
+    ['dad','night','Helio night market','A local night market with food stalls and live music, next to Asia Park.',['raffy','easy'],'Combine with the Sun Wheel.'],
+    ['dad','local','Cồn Market','A real neighbourhood market. Try the food hall and buy bánh khô mè (sesame crisps), the Da Nang gift to bring home.',['parents'],'Mornings are liveliest.'],
+    // Hoi An
+    ['hoi','relax','An Bàng beach','A quieter beach 10 minutes from the old town, with sunloungers, beach bars and seafood shacks.',['beach','raffy'],'Come late afternoon after the old town.'],
+    ['hoi','relax','Reaching Out Tea House','A silent tea house staffed by people with hearing and speech impairments. Calm and beautiful.',['parents','easy'],'Order with the little word blocks on the table.'],
+    ['hoi','relax','Palmarosa Spa','Many visitors rate it the best spa in Hoi An, set in a garden near the old town.',['parents'],'Book a day or two ahead.'],
+    ['hoi','active','Cycle to Trà Quế herb village','A flat ride through rice paddies to a farming village where herbs are grown in seaweed-fed beds.',['parents'],'Hotels lend bikes, and some have child seats.'],
+    ['hoi','active','Mỹ Sơn Sanctuary','Jungle-covered Cham temple ruins in a mountain valley. A UNESCO site that predates Angkor.',['parents'],'Go at 6am opening to beat the heat and crowds.'],
+    ['hoi','sights','Old town & Japanese Bridge','Mustard-yellow merchant houses, assembly halls and the 400-year-old covered bridge.',['parents','easy'],'Buy one ticket for 5 heritage houses. The old town is car-free, so it\'s great for a stroller.'],
+    ['hoi','sights','Hội An Memories show','A huge open-air show on a river island, with hundreds of performers telling 400 years of Hoi An history.',['parents','raffy'],'About an hour. Check show nights.'],
+    ['hoi','raffy','Coconut basket boats','Spinning bamboo boats in the water palms, and the boatmen do tricks.',['raffy'],'Pick a quieter operator further up the river.'],
+    ['hoi','raffy','Lantern-making workshop','Build your own silk lantern in an hour and take it home flat-packed.',['raffy','parents'],'A great souvenir.'],
+    ['hoi','raffy','VinWonders Nam Hội An','River safari, animals, a water park and a theme park, 30 minutes south.',['raffy'],'A full day out.'],
+    ['hoi','shop','Tailor-made clothes','Get a suit, dress or áo dài made in 24–48 hours.',['parents'],'Yaly Couture and Bebe Tailor are reputable. Bring a photo of any designer piece and they can recreate it. Order on day one so there\'s time for fittings.'],
+    ['hoi','shop','Copy outdoor & sportswear shops','Hoi An is known for cheap copy hiking jackets, backpacks and sportswear, sold in shops along the streets around the old town and the night market.',['adults','parents'],'Quality varies a lot, so check zips and seams. Australian customs can seize counterfeit goods.'],
+    ['hoi','shop','Hội An Central Market','Silk, lanterns, spices and coffee beans by the river.',['parents','easy'],'Bargain gently.'],
+    ['hoi','taste','Bánh mì showdown','Grab one from Bánh Mì Phượng and one from Madam Khánh, then let the family vote on the best.',['raffy','parents','easy'],'A fun, cheap lunch to share on a bench.'],
+    ['hoi','taste','Central Market food stalls','The covered food hall inside Hội An Central Market, with cao lầu, mì Quảng and chè at local prices.',['parents','easy'],'Best at breakfast or lunch, when it is busiest.'],
+    ['hoi','night','Lantern boat on the Thu Bon','Float a candle lantern on the river after dark. The trip\'s signature photo.',['raffy','parents','easy'],'About 150,000₫ per boat. Haggle.'],
+    ['hoi','local','Thanh Hà pottery village','Riverside potters still use hand-turned wheels. Kids can try shaping clay.',['raffy','parents'],'A short ride out of town.'],
+    // Phu Quoc
+    ['pqc','relax','Sao Beach','Powder-white sand and very calm, shallow water. The best toddler beach on the island.',['raffy','beach'],'Weekday mornings are quietest.'],
+    ['pqc','relax','Sunset at Ông Lang','A quieter west-coast stretch with low-key beach bars, perfect for sundowners.',['beach','parents'],'Sunset is about 5:30pm.'],
+    ['pqc','active','An Thới islands boat trip','Island hopping and snorkelling over coral in the south. November is the start of the clear-water season.',['beach','parents'],'Book a private boat with life jackets for a toddler.'],
+    ['pqc','active','Night squid fishing','Head out at dusk with a local boat, drop lit lines for squid, and they grill your catch on board.',['adults','parents'],'A real highlight. Calm seas in November.'],
+    ['pqc','active','Hòn Thơm cable car','7.9 km over the sea, one of the longest cable cars in the world, with a beach and water park at the top.',['raffy','parents'],'Go in the morning.'],
+    ['pqc','sights','Hộ Quốc Pagoda','A beautiful seaside temple on the cliffs of the east coast.',['parents','easy'],'Free. Dress modestly.'],
+    ['pqc','sights','Dinh Cậu shrine at sunset','A small shrine on the rocks at the mouth of Dương Đông river, loved by fishermen.',['parents','easy'],'Walk on to the night market afterwards.'],
+    ['pqc','raffy','Vinpearl Safari','Vietnam\'s biggest safari park. A bus safari, giraffe feeding and open-air animal areas.',['raffy','parents'],'Go at opening, about 9am.'],
+    ['pqc','raffy','VinWonders Phú Quốc','A theme park with a big aquarium, gentle rides and evening shows, next to the Safari.',['raffy'],'Combo tickets with the Safari save money.'],
+    ['pqc','raffy','Starfish beach (Rạch Vẹm)','Shallow water full of big orange starfish. Look, don\'t lift.',['raffy','beach'],'North of the island. Have lunch at a stilt restaurant there.'],
+    ['pqc','shop','Pepper farm & fish sauce house','See how the island\'s famous pepper and nước mắm are made. Buy direct.',['parents','easy'],'Fish sauce can\'t go on planes, so buy pepper instead.'],
+    ['pqc','shop','Dương Đông market','The island\'s local market: dried seafood, sim wine and tropical fruit.',['parents'],'Morning only.'],
+    ['pqc','night','Kiss of the Sea show','A water, fire and laser show at Sunset Town with the Kiss Bridge glowing behind.',['raffy','parents'],'Check show nights and book seats.'],
+    ['pqc','night','Grand World by night','Venice-style canals, gondolas and lantern streets all lit up, with free shows.',['raffy','easy'],'Free to enter.'],
+    ['pqc','local','Hàm Ninh fishing village','A stilt-house village on the east coast. Watch the boats come in, then eat crab on the pier.',['parents'],'Pair it with Sao Beach.'],
+    // More Saigon
+    ['hcm','relax','The Workshop Coffee','A calm, airy specialty coffee loft above the street in District 1, with big windows and slow mornings.',['parents','easy'],'Up a flight of stairs. Leave the stroller at the bottom.'],
+    ['hcm','relax','Sunset at Thủ Thiêm riverside','The grassy riverside park across the water, looking back at the whole District 1 skyline as the lights come on.',['raffy','easy'],'Space for Raffy to run around. Bring snacks.'],
+    ['hcm','active','Cần Giờ mangrove forest','A UNESCO biosphere of mangroves south of the city, explored by boat, with cheeky monkeys on Monkey Island.',['raffy','parents'],'About 2 hours each way. A private car makes it easy.'],
+    ['hcm','active','Day trip to Vũng Tàu','The beach town where Saigon escapes on weekends: seafood, a giant Christ statue on the headland and sea breezes.',['beach','parents'],'About 2 hours by car, or a fast boat from the city.'],
+    ['hcm','sights','Central Post Office & Notre-Dame','The grand French post office with painted maps, next to the red-brick cathedral.',['parents','easy'],'Send postcards home from the post office counters.'],
+    ['hcm','raffy','Saigon river water bus','A cheap, air-conditioned riverboat. Toddlers love watching the boats and bridges go by.',['raffy','easy'],'Board at Bạch Đằng pier. Sunset is the best time.'],
+    ['hcm','shop','Saigon Square','The best-known copy-goods mall in the city: rows of stalls packed with knock-off sportswear, designer-style clothes, bags, sunglasses and shoes.',['parents','adults'],'Haggle hard, starting around half the asking price. Australian customs can seize counterfeit items, so keep it to a few pieces for personal use.'],
+    ['hcm','shop','An Đông Market','A big wholesale clothing market in District 5 where locals shop. Cheap copies and Vietnamese-made clothing by the floor.',['parents'],'Mornings are calmer. The parents will do better at bargaining.'],
+    ['hcm','shop','Book Street','A shady pedestrian lane of bookshops and cafés beside the post office, including kids\' picture books.',['raffy','easy'],'Nice for a slow coffee while Raffy browses.'],
+    ['hcm','taste','Bến Thành Street Food Market','An evening food hall with dozens of stalls under one roof. Everyone can pick something different.',['raffy','easy'],'Seats for a big group, and it is covered if it rains.'],
+    ['hcm','night','Saigon river dinner cruise','Dinner on a boat while the city lights slide past.',['parents','raffy'],'Book a day or two ahead for seven.'],
+    ['hcm','night','Turtle Lake snacks','Young Saigonese gather around the Hồ Con Rùa roundabout at night for bánh tráng nướng, the "Vietnamese pizza".',['easy'],'Cheap, casual, and very local.'],
+    ['hcm','local','Hồ Thị Kỷ flower market at dawn','An alley wholesale flower market buzzing before sunrise as florists load up.',['parents'],'Best before 7am.'],
+    ['hcm','local','Tân Định pink church & market','The bubblegum-pink church, then the neighbourhood market across the road where locals shop.',['parents','easy'],'Great photos in the morning light.'],
+    // More Da Nang
+    ['dad','relax','Pool day at the Hyatt','Big pools, beach loungers and the sea right in front. Sometimes the best day is not leaving the resort.',['raffy','beach','easy'],'A good fit for a rainy-ish or tired day.'],
+    ['dad','relax','Tiên Sa beach','A quiet cove on the Son Tra peninsula, far calmer than the city beaches.',['beach','parents'],'Pair it with the Lady Buddha drive.'],
+    ['dad','active','Surf lesson at Mỹ Khê','November brings the best waves of the year, and local surf schools run beginner lessons.',['adults','beach'],'Only on days with safe conditions. Check with the school.'],
+    ['dad','sights','Da Nang pink cathedral','The French-era cathedral, painted candy pink and nicknamed the "chicken church" for its weathercock.',['parents','easy'],'In the city centre, near Hàn Market.'],
+    ['dad','raffy','Fantasy Park at Ba Na Hills','A big indoor play park at the top of the cable car, with rides and games.',['raffy'],'Included in the Ba Na Hills ticket. Handy if the clouds roll in on top of the mountain.'],
+    ['dad','raffy','Art in Paradise 3D museum','Giant optical-illusion paintings you can step into for silly photos. Air-conditioned and fun for all ages.',['raffy','easy'],'About an hour. A good rainy-day pick.'],
+    ['dad','shop','Lotte Mart','Where locals stock up on coffee, dried fruit, snacks and sauces. Easy gifts at supermarket prices.',['easy','parents'],'Air-conditioned, with a food court.'],
+    ['dad','shop','Vincom Plaza','A modern mall by the river with Vietnamese brands, a cinema and an indoor play area.',['raffy','easy'],'A good rainy-afternoon backup.'],
+    ['dad','night','Sơn Trà night market','A local night market near the Dragon Bridge with grilled seafood, sugarcane juice and cheap souvenirs.',['raffy','easy'],'Goes well with the weekend fire show.'],
+    ['dad','night','Sky36 rooftop','Drinks at one of the highest bars in Vietnam, with views over the river and bridges.',['adults'],'Smart casual dress.'],
+    ['dad','local','Thọ Quang fish market at dawn','Fishing boats unload at the port under Son Tra, and the trading is loud and fast.',['parents'],'Be there before 6am.'],
+    ['dad','local','Nam Ô fish sauce village','A centuries-old fishing village still making nước mắm in big wooden barrels.',['parents'],'Quick to visit on the way to the Hải Vân Pass.'],
+    ['dad','local','Dawn on the Hàn riverbank','At sunrise, locals fill the riverside promenade with tai chi, dance aerobics and badminton.',['parents','easy'],'Join in, or just watch with a coffee.'],
+    // More Hoi An
+    ['hoi','relax','Faifo Coffee rooftop','A rooftop café with one of the best views over the old town\'s mossy tiled roofs.',['parents','easy'],'Go late afternoon as the lanterns start to glow.'],
+    ['hoi','active','Sunrise kayak on the Thu Bon','A gentle paddle past fishing boats and water palms as the town wakes up.',['adults','parents'],'Calm water, but go only if the river is not flooded.'],
+    ['hoi','active','Cù Lao Chàm islands','A marine park off the coast with snorkelling and a quiet fishing village.',['beach','parents'],'Boats often cancel in rough November seas. Treat it as a maybe.'],
+    ['hoi','sights','Tân Ký Old House','A 200-year-old merchant\'s house with dark carved wood, still lived in by the same family.',['parents','easy'],'Included in the old town ticket.'],
+    ['hoi','sights','Phúc Kiến Assembly Hall','The most ornate of the Chinese assembly halls, with dragons, incense coils and a lovely courtyard.',['parents','easy'],'Included in the old town ticket.'],
+    ['hoi','raffy','Water buffalo in the rice fields','Farmers near Cẩm Thanh let kids meet and sit on their gentle buffalo.',['raffy'],'Pair it with the basket boats.'],
+    ['hoi','shop','Made-to-measure shoes & leather','Hoi An shoemakers copy almost any style and fit it to your feet in a day or two.',['parents'],'Order early, and go back for a fitting.'],
+    ['hoi','shop','Reaching Out Arts & Crafts','A fair-trade shop where artisans with disabilities make jewellery, textiles and homewares.',['parents','easy'],'Next to the Japanese Bridge end of town.'],
+    ['hoi','taste','White Rose dumplings','The family kitchen that makes Hoi An\'s delicate "white rose" shrimp dumplings for the whole town.',['raffy','parents'],'Watch them being folded by hand.'],
+    ['hoi','taste','Nước Mót herbal tea','A tiny stall famous for its lemongrass, lotus and herb iced tea, served with a fresh leaf.',['raffy','easy'],'On Phan Châu Trinh, perfect mid-walk.'],
+    ['hoi','night','Bài Chòi folk game','Evening singing bingo by the river, a UNESCO-listed folk game where performers sing out the cards.',['raffy','parents','easy'],'Free to watch. Buy a card to play along.'],
+    ['hoi','night','Night market & lantern streets','Across the bridge on An Hội: lantern stalls, snacks and the river glowing below.',['raffy','easy'],'Busiest 7 to 9pm.'],
+    ['hoi','night','Riverside drinks at sunset','A drink at one of the riverfront bars on An Hội as the boats light up.',['adults','parents'],'Grab a front table before 5:30pm.'],
+    ['hoi','local','Cẩm Kim island & Kim Bồng carpenters','A short ferry to a quiet island where carpenters still build boats and carve wood by hand.',['parents'],'Rent bikes and loop the island.'],
+    ['hoi','local','Riverside fish market at dawn','Boats land the night\'s catch at the old market\'s riverside as Hoi An wakes up.',['parents'],'Before 6:30am.'],
+    ['hoi','local','Phước Kiều bronze village','A village of gong-casters who make bronze gongs and bells for temples across Vietnam.',['parents'],'A short drive north of Hoi An.'],
+    // More Phu Quoc
+    ['pqc','relax','Sunset Sanato beach club','A beach club with giant sculptures standing in the shallows. Loungers, sand and a spectacular sunset.',['beach','raffy'],'Entry includes a drink. Arrive by 5pm.'],
+    ['pqc','relax','Bãi Khem','A soft-sand bay in the south that is often called the island\'s most beautiful beach.',['beach','parents'],'Pair it with the cable car day.'],
+    ['pqc','active','Suối Tranh waterfall','A short jungle trail to a gentle waterfall and rock pools, flowing best after the wet season.',['parents'],'Wear shoes with grip. A carrier for Raffy is easier than the stroller.'],
+    ['pqc','sights','Phu Quoc Prison','The former "Coconut Tree" wartime prison, now a sobering museum.',['adults'],'Confronting displays. Best for adults.'],
+    ['pqc','sights','Cao Đài temple, Dương Đông','A small, colourful temple of Vietnam\'s home-grown Cao Đài faith, with its all-seeing eye.',['parents','easy'],'Quiet and free. Dress modestly.'],
+    ['pqc','raffy','Teddy Bear Museum','Rooms full of giant and tiny teddy bears, in the Grand World area.',['raffy','easy'],'Air-conditioned and quick, a good add-on to Grand World.'],
+    ['pqc','shop','Pearl farm','See how Phu Quoc pearls are cultured and buy direct.',['parents','easy'],'Ask for certificates on bigger pieces.'],
+    ['pqc','shop','Sim wine distillery','Taste and buy the island\'s sweet berry wine made from wild rose myrtle.',['adults','parents'],'Small bottles travel well in checked bags.'],
+    ['pqc','night','Tinh Hoa Việt Nam show','A big open-air show at Grand World telling Vietnam\'s history with music, dance and water effects.',['raffy','parents'],'Check show times and arrive early for seats.'],
+    ['pqc','night','Dinh Cậu night market stroll','Snacks, ice cream rolls and grilled seafood along the river mouth.',['raffy','easy'],'Easy with a stroller.'],
+    ['pqc','local','An Thới port at dawn','Fishing boats return to the island\'s southern port with the night\'s catch.',['parents'],'Before 6am, near the cable car station.'],
+    ['pqc','local','Dương Đông harbour at sunset','Colourful fishing boats bob in the river mouth while families gather on the waterfront.',['raffy','easy'],'Walk on to the night market.'],
+    // Scenic drinks
+    ['hcm','drinks','Saigon Saigon Rooftop Bar','The Caravelle Hotel\'s 10th-floor bar, a favourite of war correspondents in the 60s. Old-world feel, views over the Opera House.',['parents','adults'],'Go at sunset. Live music most nights.'],
+    ['hcm','drinks','Blank Lounge, Landmark 81','Cocktails on the 75th floor of Vietnam\'s tallest building, with the whole city spread out below.',['adults','parents'],'Book a window table for sunset.'],
+    ['hcm','drinks','EON Heli Bar, Bitexco','A sleek bar high in the Bitexco tower, next to the famous helipad, looking down the Saigon River.',['adults'],'Smart casual dress.'],
+    ['hcm','drinks','Chill Skybar','Saigon\'s most famous rooftop: a 360° open-air deck on the 26th floor with a buzzy late-night crowd.',['adults'],'Smart dress code. Happy hour runs early evening.'],
+    ['dad','drinks','The Top, À La Carte hotel','A rooftop infinity pool and bar right above Mỹ Khê beach, with ocean on one side and Son Tra on the other.',['adults','parents'],'Sunset over the city side is the money shot.'],
+    ['dad','drinks','Long Bar, InterContinental Sun Peninsula','A spectacular resort carved into the Son Tra jungle. Drinks on the terrace look over a private bay.',['adults','parents'],'Pricey, but worth one special drink. Dress nicely.'],
+    ['dad','drinks','Brilliant Top Bar','A rooftop above the Han river with front-row views of the lit-up bridges, including the Dragon Bridge.',['adults','parents'],'Perfect before the weekend fire show.'],
+    ['dad','drinks','Sunset at the Hyatt\'s beach bar','No travel needed: feet in the sand with a cocktail as the sky goes pink over Non Nước beach.',['parents','raffy','easy'],'Easy with Raffy, since you\'re already home.'],
+    ['hoi','drinks','Soul Kitchen, An Bàng','A laid-back beach bar on the sand at An Bàng, with bean bags, live music and sea breezes.',['adults','parents','beach'],'Sunday afternoons are lively.'],
+    ['hoi','drinks','The Deck House, An Bàng','Beachfront deck with cocktails and loungers, a quieter spot to watch the waves.',['parents','beach'],'Good for a long, slow afternoon.'],
+    ['hoi','drinks','Rooftop at Hotel Royal Hoi An','A rooftop pool bar looking over the river and the old town as the lanterns come on.',['adults','parents'],'Go around 5:30pm.'],
+    ['hoi','drinks','Riverside lantern bars, An Hội','Little bars facing the old town across the Thu Bon, with the lantern boats floating past.',['parents','raffy','easy'],'The cheapest of the lot, and the most Hoi An.'],
+    ['pqc','drinks','Chuồn Chuồn Sky Bar','A hilltop bistro above Dương Đông with sweeping sunset views over the sea, and a short ride from Lahana.',['parents','raffy','easy'],'Arrive by 5pm for a sunset table.'],
+    ['pqc','drinks','INK 360, InterContinental','A 21st-floor sky bar with views along Long Beach and the islands.',['adults','parents'],'Dress smart casual.'],
+    ['pqc','drinks','Rory\'s Beach Bar','A barefoot bar on Long Beach with fire shows at night and cheap cocktails.',['adults','beach'],'Relaxed and casual.'],
+    ['pqc','drinks','Sunset Town & Kiss Bridge cafés','Pastel Mediterranean-style streets by the sea, with cafés looking out at the Kiss Bridge.',['parents','raffy','easy'],'Pair it with the Kiss of the Sea show.'],
+    ['pqc','local','Gành Dầu, the northern tip','A quiet fishing village where, on a clear day, you can see Cambodia across the water.',['parents'],'Pair it with Starfish beach.']
+  ].map(a => ({ city: a[0], cat: a[1], name: a[2], what: a[3], tags: a[4], tip: a[5] }))
+};
+const CITY = { hcm: 'Saigon', dad: 'Da Nang · Hoi An', hoi: 'Hoi An', pqc: 'Phu Quoc' };
+const TAG = { raffy: 'Raffy-friendly', parents: "Parents' pick", easy: 'Easy walking', beach: 'Beach', adults: 'Adults' };
+const TAGCLR = { raffy: ['var(--lantern-soft)','var(--warn)'], parents: ['var(--lotus-soft)','var(--lotus)'], easy: ['var(--jade-soft)','var(--jade)'], beach: ['var(--sea-soft)','var(--sea)'], adults: ['var(--paper)','var(--muted)'] };
+
+const mem = {};
+const store = {
+  get(k, d) { if (k in mem) return mem[k]; try { const v = localStorage.getItem('vn26-' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { mem[k] = v; try { localStorage.setItem('vn26-' + k, JSON.stringify(v)); } catch (e) {} }
+};
+const $ = s => document.querySelector(s);
+const chips = tags => '<div class="chips">' + (tags || []).map(t => `<span class="chip ${t}">${TAG[t]}</span>`).join('') + '</div>';
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => t.hidden = true, 1800); }
+const ymd = d => d.toISOString().slice(0, 10);
+
+const lanterns = `<svg class="hero-lanterns" viewBox="0 0 120 130" aria-hidden="true">
+  <g stroke="rgba(255,255,255,.35)" stroke-width="1"><line x1="22" y1="0" x2="22" y2="30"/><line x1="62" y1="0" x2="62" y2="14"/><line x1="100" y1="0" x2="100" y2="44"/></g>
+  <g><rect x="16" y="28" width="12" height="4" rx="1" fill="#7a4a06"/><ellipse cx="22" cy="52" rx="16" ry="21" fill="#E39A12"/><path d="M22 31v42M12 36q10 16 0 32M32 36q-10 16 0 32" stroke="rgba(0,0,0,.18)" fill="none"/><rect x="16" y="72" width="12" height="4" rx="1" fill="#7a4a06"/><path d="M22 76v12" stroke="#E39A12" stroke-width="2"/></g>
+  <g><rect x="56" y="12" width="12" height="4" rx="1" fill="#6b1d33"/><ellipse cx="62" cy="38" rx="18" ry="24" fill="#C9496E"/><path d="M62 15v46M50 20q12 18 0 36M74 20q-12 18 0 36" stroke="rgba(0,0,0,.18)" fill="none"/><rect x="56" y="61" width="12" height="4" rx="1" fill="#6b1d33"/><path d="M62 65v14" stroke="#C9496E" stroke-width="2"/></g>
+  <g><rect x="94" y="42" width="12" height="4" rx="1" fill="#7a4a06"/><ellipse cx="100" cy="64" rx="14" ry="19" fill="#F6C453"/><path d="M100 46v37M91 50q9 14 0 28M109 50q-9 14 0 28" stroke="rgba(0,0,0,.15)" fill="none"/><rect x="94" y="82" width="12" height="4" rx="1" fill="#7a4a06"/><path d="M100 86v11" stroke="#F6C453" stroke-width="2"/></g>
+</svg>`;
+
+function heroCountdown() {
+  const now = new Date(), ms = TRIP.depart - now;
+  const today = ymd(new Date(now.getTime() + 7 * 3600e3)); // Vietnam date
+  if (ms > 0) {
+    const d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4);
+    return `<div class="count"><div><b>${d}</b><span>days</span></div><div><b>${h}</b><span>hours</span></div><div><b>${m}</b><span>mins</span></div></div>
+      <small>to go until your holiday!</small>`;
+  }
+  const st = TRIP.stages.find(s => today >= s.start && today < s.end);
+  if (st) return `<small>Today you're in</small><h2 style="color:#fff">${st.city}</h2>`;
+  return `<small>Welcome home. Hope Raffy slept on the plane.</small>`;
+}
+
+function stageNow(s) {
+  const today = ymd(new Date(Date.now() + 7 * 3600e3));
+  return today >= s.start && today < s.end;
+}
+
+function viewTrip() {
+  const open = store.get('open', 'pqc');
+  return `<section class="view">
+    <div class="hero">
+      ${lanterns}
+      <span class="eyebrow">31 Oct – 15 Nov 2026 · Family trip</span>
+      <h1>Vietnam 2026</h1>
+      ${heroCountdown()}
+    </div>
+
+    <div class="section-head"><span class="eyebrow">The route</span><h2>Saigon → Da Nang → Phu Quoc → Saigon</h2></div>
+    <div class="route">
+      ${TRIP.stages.map(s => `
+      <div class="stop card${stageNow(s) ? ' now' : ''}" ${open === s.id ? 'open' : ''} data-stage="${s.id}">
+        <button class="stop-btn" aria-expanded="${open === s.id}">
+          <div class="stop-top"><h3>${s.city}</h3><span class="dates">${s.dates}</span></div>
+          <div class="row"><span class="vn">${s.vn}</span>${s.tbc ? '<span class="tbc">DATES TBC</span>' : ''}</div>
+          ${s.stay ? `<div class="stay"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg><b>${s.stay.name}</b><span>${s.stay.nights}</span></div>` : ''}
+          ${s.stay && s.stay.warn ? `<p class="stay-warn">${s.stay.warn}</p>` : ''}
+        </button>
+        <div class="stop-body">
+          ${s.stay ? `<div class="stack" style="gap:6px"><span class="eyebrow">Getting to ${s.stay.name}</span>${placeLinks(s.stay.name, s.id.startsWith('hcm') ? 'hcm' : s.id)}</div>` : ''}
+          <p class="weather">${s.weather}</p>
+          ${s.note ? `<p class="weather">${s.note}</p>` : ''}
+          ${s.days ? `<p class="suggest">Bookings are fixed. Everything marked Idea is just a suggestion to swap, skip or mix as the family likes.</p>` : ''}
+          ${s.days ? s.days.map(day => `
+            <details class="day">
+              <summary class="day-h"><span class="sum"><h3>${day.d}</h3><span class="eyebrow">${day.t}</span></span>${chev}</summary>
+              ${day.slots.map(sl => `<div class="slot"><span class="slot-t">${sl[0]}</span><div class="slot-b">${sl[3] ? '<span class="idea">Idea</span>' : ''}${sl[1]}<span class="muted">${sl[2]}</span></div></div>`).join('')}
+            </details>`).join('') : ''}
+          ${s.ideas ? `<div class="day"><span class="eyebrow">Shortlist · full days coming once dates are set</span>${s.ideas.map(i => `<div>· ${i}</div>`).join('')}</div>` : ''}
+        </div>
+      </div>`).join('')}
+    </div>
+  </section>`;
+}
+
+// Flight durations, worked out across time zones (Melbourne AEDT UTC+11, Vietnam UTC+7)
+const DUR = { VJ082: '8h 25m', VJ640: '1h 20m', VJ715: '1h 45m', VN1824: '1h 10m', VJ081: '8h 30m' };
+function viewFlights() {
+  return `<section class="view">
+    <div class="section-head"><span class="eyebrow">Boarding passes</span><h1>Flights</h1>
+</div>
+    ${TRIP.flights.map((f, i) => `
+    <article class="pass${f.pending ? ' pending' : ''}">
+      <div class="pass-top"><span class="num">${f.num}</span><span class="eyebrow">${f.airline}</span></div>
+      <div class="pass-main">
+        <div><div class="iata">${f.from}</div><div class="t">${f.dep}</div><div class="c">${f.fromC}</div></div>
+        <div class="mid"><svg class="plane" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 12h16M15 7l5 5-5 5"/></svg>${DUR[f.num] ? `<span class="dur">${DUR[f.num]}</span>` : ''}</div>
+        <div class="r"><div class="iata">${f.to}</div><div class="t">${f.arr}</div><div class="c">${f.toC}</div></div>
+      </div>
+      <div class="tear"></div>
+      <div class="pass-foot">
+        <div class="kv">
+          <div><span>Date</span><b>${f.date}</b></div>
+          ${f.by ? `<div><span>At airport by</span><b>${f.by}</b></div>` : ''}
+          ${f.ref ? `<div><span>Booking ref</span><b><button class="reveal" data-ref="${f.ref}" id="ref-${i}">Tap to show</button></b></div>` : ''}
+        </div>
+        ${f.bag ? `<details class="more"><summary>Bags, seat & notes ${chev}</summary><p class="muted">${f.bag}</p></details>` : ''}
+        ${f.pending ? `<p class="muted" style="font-size:.85rem">Details will go here once booked.</p>` : `
+        <div class="row">
+          <a class="btn" href="https://www.flightaware.com/live/flight/${f.fa}" target="_blank" rel="noopener">Live status</a>
+          <a class="btn ghost" href="https://www.flightradar24.com/data/flights/${f.fr}" target="_blank" rel="noopener">Flightradar24</a>
+          <a class="btn ghost" href="${f.site}" target="_blank" rel="noopener">Airline</a>
+        </div>`}
+      </div>
+    </article>`).join('')}
+  </section>`;
+}
+
+function filterBar(key, cur) {
+  const opts = [['all','All'], ['hcm','Saigon'], ['dad','Da Nang · Hoi An'], ['pqc','Phu Quoc'], ['raffy','Raffy-friendly'], ['parents',"Parents' picks"]];
+  return `<div class="filters" role="group" aria-label="Filter">${opts.map(o => `<button data-filter="${key}" data-v="${o[0]}" aria-pressed="${cur === o[0]}">${o[1]}</button>`).join('')}</div>`;
+}
+const pass = (it, f) => f === 'all' || it.city === f || (it.tags || []).includes(f);
+
+const ICON = {
+  // Duotone line icons: a soft filled shape under a crisp outline
+  nav: '<path class="fill" d="M3 11 21 3l-8 18-2-8z"/><path d="M3 11 21 3l-8 18-2-8z"/>',
+  b: '<path class="fill" d="M5 11h12v3a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M5 11h12v3a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5zM17 12.5h1.5a2 2 0 0 1 0 4H17M8 3.5c.8.9.8 2.1 0 3M11 3c.8.9.8 2.1 0 3M14 3.5c.8.9.8 2.1 0 3M3 21.5h16"/>',
+  l: '<path class="fill" d="M3 12h18a9 7 0 0 1-18 0z"/><path d="M3 12h18a9 7 0 0 1-18 0zM8 19.5h8M15 3l-3 8M20 4l-6 7M7 6c.7.8.7 1.8 0 2.5M10 5c.7.8.7 1.8 0 2.5"/>',
+  d: '<path class="fill" d="M7 6h10c1.5 2 1.5 9 0 11H7c-1.5-2-1.5-9 0-11z"/><path d="M12 2v2M10 4h4M7 6h10c1.5 2 1.5 9 0 11H7c-1.5-2-1.5-9 0-11zM12 6v11M9.2 6.3c-.9 3-.9 7.4 0 10.4M14.8 6.3c.9 3 .9 7.4 0 10.4M10 17h4v2h-4zM12 19v3"/>',
+  raffy: '<path class="fill" d="M12 3a5 5 0 0 1 5 5c0 3.5-3 6-5 6s-5-2.5-5-6a5 5 0 0 1 5-5z"/><path d="M12 3a5 5 0 0 1 5 5c0 3.5-3 6-5 6s-5-2.5-5-6a5 5 0 0 1 5-5zM11 14h2l-1 1.5zM12 15.5c-1 1.5 1 2.5 0 4s0 2 0 2M10 6.5a2.5 2.5 0 0 1 2-1.5"/>',
+  relax: '<path class="fill" d="M14 9c-2-3-6-3-8-1 3 0 5 .5 8 1zM14 9c1-3 5-4 7-2-3 0-5 1-7 2zM14 9c3-1 6 0 7 3-2-1.5-4.5-2-7-3z"/><path d="M12 21c0-5 .5-9 2-12M14 9c-2-3-6-3-8-1 3 0 5 .5 8 1zM14 9c1-3 5-4 7-2-3 0-5 1-7 2zM14 9c3-1 6 0 7 3-2-1.5-4.5-2-7-3zM2 21c2-1.3 4-1.3 6 0s4 1.3 6 0 4-1.3 6 0"/>',
+  active: '<path class="fill" d="m2 20 7-12 4 6 2.5-3.5L22 20z"/><path d="m2 20 7-12 4 6 2.5-3.5L22 20zM9 8V3l4 1.5L9 6"/>',
+  sights: '<path class="fill" d="M5 8c2 0 3-1 7-4 4 3 5 4 7 4zM6 13c2 0 3-1 6-3 3 2 4 3 6 3z"/><path d="M12 2v2M5 8c2 0 3-1 7-4 4 3 5 4 7 4zM7 8v2M17 8v2M6 13c2 0 3-1 6-3 3 2 4 3 6 3zM8 13v8M16 13v8M4 21h16M11 21v-4h2v4"/>',
+  shop: '<path class="fill" d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8zM9 10V6a3 3 0 0 1 6 0v4"/>',
+  taste: '<path class="fill" d="M3 14c0-4 5-8 11-8 4 0 7 2 7 4 0 4-6 8-12 8-4 0-6-2-6-4z"/><path d="M3 14c0-4 5-8 11-8 4 0 7 2 7 4 0 4-6 8-12 8-4 0-6-2-6-4zM8 10l2 2M12 8.5l2 2M16 8.5l1.5 1.5"/>',
+  night: '<path class="fill" d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5z"/><path d="M19 14.5A7.5 7.5 0 1 1 9.5 5a6 6 0 0 0 9.5 9.5zM17 3v3M15.5 4.5h3M20.5 8v2M19.5 9h2"/>',
+  drinks: '<path class="fill" d="M5 4h14l-7 8z"/><path d="M5 4h14l-7 8zM12 12v8M8 20h8"/><circle cx="17.5" cy="5.5" r="2.5"/>',
+  local: '<path class="fill" d="M2 15 12 4l10 11z"/><path d="M2 15 12 4l10 11zM2 15c3 1.5 17 1.5 20 0M6 16.5c1 3 3 4.5 6 4.5s5-1.5 6-4.5"/>'
+};
+const ico = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
+const chev = '<svg class="chev-d" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+const CITY_OPTS = [['hcm','Saigon'], ['dad','Da Nang'], ['hoi','Hoi An'], ['pqc','Phu Quoc']];
+const cityBar = (key, f) => `<div class="filters" role="group" aria-label="City">${CITY_OPTS.map(o => `<button data-filter="${key}" data-v="${o[0]}" aria-pressed="${f === o[0]}">${o[1]}</button>`).join('')}</div>`;
+
+// Rough costs in VND: [amount, unit]. Units: p = per person, a = per adult ticket, g = whole group, b = per boat. 0 = free.
+const COST = {
+  // Eat
+  'Phở Lệ': [85000,'p'], 'Cơm Tấm Ba Ghiền': [80000,'p'], 'Bánh Mì Hòa Mã': [70000,'p'], 'Cà Phê Vợt Cheo Leo': [25000,'p'],
+  'Bánh Xèo 46A': [110000,'p'], 'Bún Thịt Nướng Chị Tuyền': [50000,'p'], 'Hủ Tiếu Nam Vang Nhân Quán': [75000,'p'], 'Bún Bò Huế Đông Ba': [65000,'p'],
+  'Ốc Oanh': [250000,'p'], 'Ốc Đào': [200000,'p'], 'Hồ Thị Kỷ food alley': [80000,'p'], 'Quán Bụi': [200000,'p'],
+  'Bún Chả Cá Bà Lữ': [35000,'p'], 'Mì Quảng 1A': [40000,'p'], 'Chợ Cồn': [40000,'p'], 'Quán Mậu': [100000,'p'],
+  'Bánh Xèo Bà Dưỡng': [60000,'p'], 'Mì Quảng Bà Mua': [45000,'p'], 'Hải Sản Năm Đảnh': [150000,'p'], 'Hải Sản Bé Mặn': [300000,'p'], 'Bún Mắm Vân': [35000,'p'],
+  'Bánh Mì Madam Khánh': [30000,'p'], 'Bánh Mì Phượng': [35000,'p'], 'Cơm Gà Bà Buội': [50000,'p'], 'Cao Lầu Thanh': [40000,'p'],
+  'Bánh Xèo Bale Well': [150000,'p'], 'Cẩm Nam island stalls': [40000,'p'], 'Hoi An night market': [60000,'p'],
+  'Bún Quậy Kiến Xây': [50000,'p'], 'Dương Đông morning market': [40000,'p'], 'Nhà Hàng Ra Khơi': [250000,'p'], 'Hàm Ninh pier restaurants': [350000,'p'],
+  'Hải Sản Xin Chào': [350000,'p'], 'Dinh Cậu night market': [150000,'p'],
+  'Bánh Canh Nga': [40000,'p'], 'Cơm Gà A Hải': [50000,'p'], 'Hải Sản Bé Ni 2': [200000,'p'], 'Mì Quảng Ông Hai': [35000,'p'],
+  'Central Market food hall': [50000,'p'], 'Cơm Gà Bà Nga': [50000,'p'], 'White Rose': [80000,'p'], 'Cửa Đại beach seafood shacks': [200000,'p'],
+  'Bún Quậy Thanh Hùng': [50000,'p'], 'Riverside coffee & bánh mì carts': [35000,'p'], 'Rạch Vẹm floating restaurants': [300000,'p'],
+  'Bún kèn stalls, Dương Đông': [40000,'p'], 'Chuồn Chuồn Bistro': [250000,'p'], 'Long Beach seafood grills': [300000,'p'],
+  // Do: Saigon
+  'Miu Miu Spa': [400000,'p'], 'Café apartments, 42 Nguyễn Huệ': [60000,'p'], 'Mekong Delta day trip': [5000000,'g'], 'Cu Chi Tunnels': [600000,'p'],
+  'Independence Palace': [65000,'a'], 'Jade Emperor Pagoda': [0], 'War Remnants Museum': [40000,'a'], 'Saigon Zoo & Botanical Gardens': [60000,'a'],
+  'Đầm Sen Water Park': [200000,'a'], 'tiNiWorld indoor play': [150000,'p'], 'Bình Tây Market': [0], 'Ben Thanh Market': [0], 'Saigon Centre / Takashimaya': [0],
+  'Saigon coffee crawl': [100000,'p'], 'Chè dessert crawl in Cholon': [40000,'p'], 'Tropical fruit tasting': [100000,'p'],
+  'Nguyễn Huệ walking street': [0], 'Rooftop drinks': [250000,'p'], 'Tao Dan Park bird café': [25000,'p'], 'Cholon temples': [0],
+  'The Workshop Coffee': [70000,'p'], 'Sunset at Thủ Thiêm riverside': [0], 'Cần Giờ mangrove forest': [3500000,'g'], 'Day trip to Vũng Tàu': [350000,'p'],
+  'Central Post Office & Notre-Dame': [0], 'Saigon river water bus': [15000,'p'], 'Book Street': [0], 'Bến Thành Street Food Market': [100000,'p'],
+  'Saigon river dinner cruise': [800000,'p'], 'Turtle Lake snacks': [30000,'p'], 'Hồ Thị Kỷ flower market at dawn': [0], 'Tân Định pink church & market': [0],
+  // Do: Da Nang
+  'Sunrise swim at Mỹ Khê': [0], 'Charm Spa Grand': [450000,'p'], 'Hải Vân Pass drive': [1500000,'g'], 'Ba Na Hills & Golden Bridge': [900000,'a'],
+  'Son Tra peninsula': [500000,'g'], 'Marble Mountains': [55000,'a'], 'Museum of Cham Sculpture': [60000,'a'], 'Lady Buddha & Linh Ứng Pagoda': [0],
+  'Mikazuki Water Park 365': [300000,'a'], 'Asia Park / Sun World': [200000,'a'], 'Hàn Market': [0], 'Non Nước marble village': [0],
+  'Dragon Bridge fire show': [0], 'Helio night market': [80000,'p'], 'Cồn Market': [0], 'Pool day at the Hyatt': [0], 'Tiên Sa beach': [0],
+  'Surf lesson at Mỹ Khê': [900000,'p'], 'Art in Paradise 3D museum': [200000,'a'], 'Da Nang pink cathedral': [0], 'Lotte Mart': [0], 'Vincom Plaza': [0], 'Sơn Trà night market': [100000,'p'],
+  'Sky36 rooftop': [250000,'p'], 'Thọ Quang fish market at dawn': [0], 'Nam Ô fish sauce village': [0], 'Dawn on the Hàn riverbank': [0],
+  // Do: Hoi An
+  'An Bàng beach': [100000,'p'], 'Reaching Out Tea House': [100000,'p'], 'Palmarosa Spa': [450000,'p'], 'Cycle to Trà Quế herb village': [30000,'p'],
+  'Mỹ Sơn Sanctuary': [150000,'a'], 'Old town & Japanese Bridge': [120000,'a'], 'Hội An Memories show': [600000,'a'], 'Coconut basket boats': [150000,'p'],
+  'Lantern-making workshop': [200000,'p'], 'VinWonders Nam Hội An': [600000,'a'], 'Tailor-made clothes': null, 'Hội An Central Market': [0],
+  'Lantern boat on the Thu Bon': [150000,'b'], 'Thanh Hà pottery village': [35000,'a'], 'Faifo Coffee rooftop': [60000,'p'], 'Sunrise kayak on the Thu Bon': [600000,'p'],
+  'Cù Lao Chàm islands': [700000,'p'], 'Tân Ký Old House': [0], 'Phúc Kiến Assembly Hall': [0], 'Water buffalo in the rice fields': [100000,'p'],
+  'Made-to-measure shoes & leather': null, 'Reaching Out Arts & Crafts': null, 'Bánh mì showdown': [70000,'p'], 'Central Market food stalls': [50000,'p'],
+  'White Rose dumplings': [80000,'p'], 'Nước Mót herbal tea': [20000,'p'], 'Bài Chòi folk game': [0], 'Night market & lantern streets': [0],
+  'Riverside drinks at sunset': [100000,'p'], 'Cẩm Kim island & Kim Bồng carpenters': [50000,'p'], 'Riverside fish market at dawn': [0], 'Phước Kiều bronze village': [0],
+  // Do: Phu Quoc
+  'Sao Beach': [0], 'Sunset at Ông Lang': [0], 'An Thới islands boat trip': [800000,'p'], 'Night squid fishing': [500000,'p'],
+  'Hòn Thơm cable car': [650000,'a'], 'Hộ Quốc Pagoda': [0], 'Dinh Cậu shrine at sunset': [0], 'Vinpearl Safari': [650000,'a'],
+  'VinWonders Phú Quốc': [950000,'a'], 'Starfish beach (Rạch Vẹm)': [0], 'Pepper farm & fish sauce house': [0], 'Dương Đông market': [0],
+  'Kiss of the Sea show': [500000,'a'], 'Grand World by night': [0], 'Hàm Ninh fishing village': [0], 'Sunset Sanato beach club': [200000,'p'],
+  'Bãi Khem': [0], 'Suối Tranh waterfall': [20000,'a'], 'Phu Quoc Prison': [0], 'Cao Đài temple, Dương Đông': [0], 'Teddy Bear Museum': [200000,'a'],
+  'Pearl farm': [0], 'Sim wine distillery': [0], 'Tinh Hoa Việt Nam show': null, 'Dinh Cậu night market stroll': [150000,'p'],
+  'Saigon Saigon Rooftop Bar': [250000,'p'], 'Blank Lounge, Landmark 81': [350000,'p'], 'EON Heli Bar, Bitexco': [350000,'p'], 'Chill Skybar': [350000,'p'],
+  'The Top, À La Carte hotel': [200000,'p'], 'Long Bar, InterContinental Sun Peninsula': [450000,'p'], 'Brilliant Top Bar': [180000,'p'], 'Sunset at the Hyatt\'s beach bar': [250000,'p'],
+  'Soul Kitchen, An Bàng': [120000,'p'], 'The Deck House, An Bàng': [150000,'p'], 'Rooftop at Hotel Royal Hoi An': [250000,'p'], 'Riverside lantern bars, An Hội': [80000,'p'],
+  'Chuồn Chuồn Sky Bar': [150000,'p'], 'INK 360, InterContinental': [300000,'p'], 'Rory\'s Beach Bar': [100000,'p'], 'Sunset Town & Kiss Bridge cafés': [80000,'p'],
+  'An Thới port at dawn': [0], 'Dương Đông harbour at sunset': [0], 'Gành Dầu, the northern tip': [0]
+};
+// Google Maps lookups for the Do picks: a better search phrase where the pick's name is descriptive, or null where there is no single place.
+const MAPQ = {
+  'Saigon coffee crawl': 'Cà Phê Vợt Cheo Leo', 'Chè dessert crawl in Cholon': 'Chè Hà Ký', 'Tropical fruit tasting': null, 'Rooftop drinks': 'Social Club Rooftop Bar Hôtel des Arts',
+  'Mekong Delta day trip': 'Bến Tre', 'Cholon temples': 'Thiên Hậu Temple Chợ Lớn', 'Sunset at Thủ Thiêm riverside': 'Thủ Thiêm riverside park', 'Day trip to Vũng Tàu': 'Vũng Tàu',
+  'Saigon river water bus': 'Bạch Đằng waterbus station', 'Saigon river dinner cruise': null, 'Turtle Lake snacks': 'Hồ Con Rùa', 'Hồ Thị Kỷ flower market at dawn': 'Chợ hoa Hồ Thị Kỷ',
+  'Sunrise swim at Mỹ Khê': 'Mỹ Khê Beach', 'Surf lesson at Mỹ Khê': 'Mỹ Khê Beach', 'Pool day at the Hyatt': 'Hyatt Regency Danang Resort and Spa', 'Art in Paradise 3D museum': 'Art in Paradise Danang',
+  'Sunset at the Hyatt\'s beach bar': 'Hyatt Regency Danang Resort and Spa', 'Dawn on the Hàn riverbank': 'Bạch Đằng riverside Đà Nẵng', 'Son Tra peninsula': 'Sơn Trà Peninsula', 'Hải Vân Pass drive': 'Hải Vân Pass',
+  'Cycle to Trà Quế herb village': 'Trà Quế vegetable village', 'Water buffalo in the rice fields': 'Cẩm Thanh Hội An', 'Lantern-making workshop': null, 'Tailor-made clothes': 'Yaly Couture Hội An',
+  'Made-to-measure shoes & leather': null, 'Bánh mì showdown': 'Bánh Mì Phượng Hội An', 'Riverside drinks at sunset': 'An Hội Hội An', 'Riverside lantern bars, An Hội': 'An Hội Hội An',
+  'Riverside fish market at dawn': 'Hội An Central Market', 'Sunrise kayak on the Thu Bon': null, 'Night market & lantern streets': 'Hội An Night Market', 'Lantern boat on the Thu Bon': 'Thu Bồn River Hội An',
+  'Old town & Japanese Bridge': 'Japanese Covered Bridge Hội An', 'An Thới islands boat trip': 'An Thới Archipelago', 'Night squid fishing': null, 'Sunset at Ông Lang': 'Ông Lang Beach',
+  'Dinh Cậu night market stroll': 'Dinh Cậu Night Market', 'Grand World by night': 'Grand World Phú Quốc', 'Sunset Town & Kiss Bridge cafés': 'Kiss Bridge Sunset Town Phú Quốc', 'Gành Dầu, the northern tip': 'Gành Dầu Phú Quốc'
+};
+const MAP_CITY = { hcm: 'Ho Chi Minh City', dad: 'Da Nang', hoi: 'Hoi An', pqc: 'Phu Quoc' };
+// Directions from wherever you are right now (Google Maps uses your current location as the start,
+// and its downloaded offline areas when there is no signal), plus a geo: link that opens any installed
+// maps app such as Organic Maps for fully offline navigation, and the photos/reviews page.
+function placeLinks(q, city) {
+  if (!q) return '';
+  const dest = encodeURIComponent(q + ', ' + MAP_CITY[city] + ', Vietnam');
+  return `<div class="row place-links">
+    <a class="btn sm" href="https://www.google.com/maps/dir/?api=1&destination=${dest}" target="_blank" rel="noopener">${ico('nav')}Directions</a>
+    <a class="btn ghost sm" href="geo:0,0?q=${dest}">${ico('local')}Offline maps app</a>
+    <a class="btn ghost sm" href="https://www.google.com/maps/search/?api=1&query=${dest}" target="_blank" rel="noopener">${ico('sights')}Photos</a>
+  </div>`;
+}
+function mapLink(x) {
+  return placeLinks(x.name in MAPQ ? MAPQ[x.name] : x.name, x.city);
+}
+const UNIT = { p: 'pp', a: 'adult', g: 'group', b: 'boat' };
+const UNIT_LONG = { p: 'per person', a: 'per adult ticket', g: 'for the whole group', b: 'per boat' };
+function costPill(name) {
+  const c = COST[name]; if (!c) return '';
+  if (!c[0]) return '<span class="cost free">Free</span>';
+  const aud = c[0] / (store.get('rate', 18100) || 18100);
+  return `<span class="cost">~$${aud < 10 ? Math.max(1, Math.round(aud)) : Math.round(aud / 5) * 5} <small>${UNIT[c[1]]}</small></span>`;
+}
+function costLine(name) {
+  const c = COST[name]; if (!c) return '';
+  if (!c[0]) return '<p class="cost-line">Rough cost: free</p>';
+  const aud = c[0] / (store.get('rate', 18100) || 18100);
+  return `<p class="cost-line">Rough cost: about ${c[0].toLocaleString('en-AU')}₫ ${UNIT_LONG[c[1]]} (≈ A$${aud < 10 ? aud.toFixed(1) : Math.round(aud)})</p>`;
+}
+
+const MEALS = [['b', 'Breakfast', 'Bữa sáng', '6–10am'], ['l', 'Lunch', 'Bữa trưa', '11am–2pm'], ['d', 'Dinner', 'Bữa tối', '5–10pm']];
+function viewEat() {
+  let f = store.get('f-eat2', 'hcm'); if (!CITY_OPTS.some(o => o[0] === f)) f = 'hcm';
+  const m = store.get('f-meal', ''), meal = MEALS.find(x => x[0] === m);
+  const items = meal ? TRIP.food.filter(x => x.city === f && x.meal === m) : [];
+  return `<section class="view">
+    <div class="section-head"><span class="eyebrow">Ăn gì? · Where locals eat</span><h1>Eat</h1></div>
+    ${cityBar('eat2', f)}
+    <div class="tiles three">${MEALS.map(x => { const n = TRIP.food.filter(y => y.city === f && y.meal === x[0]).length; return `
+      <button class="tile" data-k="${x[0]}" data-filter="meal" data-v="${x[0]}" data-toggle="1" aria-pressed="${m === x[0]}">
+        <span class="tile-art" aria-hidden="true">${ico(x[0])}</span>${ico(x[0])}<span><b>${x[1]}</b><small>${n} spots · ${x[3]}</small><em>${TRIP.food.filter(y => y.city === f && y.meal === x[0]).slice(0, 2).map(y => y.dish).join(' · ')}</em></span>
+      </button>`; }).join('')}</div>
+    ${meal ? `<div class="stack">
+      <div class="list-h"><h2>${meal[1]}</h2><span class="vn">${meal[2]}</span></div>
+      ${items.map(x => `
+      <details class="card spot">
+        <summary><span class="sum"><h3>${x.place}</h3><span class="famous-s"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span></span></span>${costPill(x.place)}${chev}</summary>
+        <div class="spot-body">
+          <div class="famous"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span><span class="muted">${x.en}</span></div>
+          <p>${x.note}</p>
+          <p class="where">${x.area}</p>
+          ${costLine(x.place)}
+          ${placeLinks(x.place + ', ' + x.area, x.city)}
+          ${chips(x.tags)}
+        </div>
+      </details>`).join('')}
+      <p class="hint">Costs are rough guesses per person. Say <span class="vn">không cay</span> for not spicy. Check opening hours on Google Maps.</p>
+    </div>` : `<p class="hint">Tap a meal to see where locals eat.</p>`}
+  </section>`;
+}
+
+const CATS = [
+  ['raffy', 'For Raffy', 'Cho bé'], ['relax', 'Relaxing', 'Thư giãn'], ['active', 'Adventures', 'Khám phá'],
+  ['sights', 'Sightseeing', 'Tham quan'], ['shop', 'Shopping', 'Mua sắm'], ['taste', 'Food experiences', 'Ẩm thực'],
+  ['night', 'Evenings', 'Buổi tối'], ['drinks', 'Scenic drinks', 'Đồ uống ngắm cảnh'], ['local', 'Local gems', 'Đời sống địa phương']
+];
+function viewDo() {
+  let f = store.get('f-do2', 'hcm'); if (!CITY_OPTS.some(o => o[0] === f)) f = 'hcm';
+  const inCity = TRIP.activities.filter(x => x.city === f);
+  const cats = CATS.filter(k => inCity.some(x => x.cat === k[0]));
+  const c = store.get('f-cat', ''), cat = cats.find(k => k[0] === c);
+  return `<section class="view">
+    <div class="section-head"><span class="eyebrow">Đi đâu? · Where to go</span><h1>Do</h1></div>
+    ${cityBar('do2', f)}
+    <div class="tiles two">${cats.map(k => `
+      <button class="tile" data-k="${k[0]}" data-filter="cat" data-v="${k[0]}" data-toggle="1" aria-pressed="${c === k[0]}">
+        <span class="tile-art" aria-hidden="true">${ico(k[0])}</span>${ico(k[0])}<span><b>${k[1]}</b><small>${inCity.filter(x => x.cat === k[0]).length} picks</small><em>${inCity.filter(x => x.cat === k[0]).slice(0, 2).map(x => x.name).join(' · ')}</em></span>
+      </button>`).join('')}</div>
+    ${cat ? `<div class="stack">
+      <div class="list-h"><h2>${cat[1]}</h2><span class="vn">${cat[2]}</span></div>
+      ${inCity.filter(x => x.cat === c).map(x => `
+      <details class="card spot">
+        <summary><span class="sum"><h3>${x.name}</h3>${chips(x.tags.slice(0, 1))}</span>${costPill(x.name)}${chev}</summary>
+        <div class="spot-body">
+          <p>${x.what}</p>
+          ${x.tip ? `<p class="tip"><b>Tip:</b> ${x.tip}</p>` : ''}
+          ${costLine(x.name)}
+          ${mapLink(x)}
+          ${chips(x.tags.slice(1))}
+        </div>
+      </details>`).join('')}
+      <p class="hint">Costs are rough guesses and change often. Kids under about 1 m tall are free or cheaper at most attractions.</p>
+    </div>` : `<p class="hint">Tap a category to see the picks.</p>`}
+  </section>`;
+}
+
+const PHRASES = [
+  ['Xin chào', 'Hello'], ['Cảm ơn', 'Thank you'], ['Bao nhiêu tiền?', 'How much is it?'],
+  ['Không cay', 'Not spicy'], ['Không đá', 'No ice'], ['Ít đường', 'Less sugar'],
+  ['Tính tiền', 'The bill, please'], ['Ngon quá!', 'So delicious!'],
+  ['Nhà vệ sinh ở đâu?', 'Where is the toilet?'], ['Cho tôi một chai bia', 'One beer, please']
+];
+// Practical help for travelling with Raffy, grouped into collapsed Toolkit cards
+const RAFFY_KIT = [
+  { title: 'Access & amenities for Raffy', sub: 'Access and amenities in each stop', icon: 'raffy', groups: [
+    ['Saigon', [
+      '<b>Smooth and stroller-friendly:</b> Nguyễn Huệ walking street, Book Street, the Independence Palace grounds and Saigon Zoo.',
+      '<b>Malls with family rooms and indoor play:</b> Saigon Centre / Takashimaya and Vincom Center Đồng Khởi in District 1. tiNiWorld play centres are inside most big malls.',
+      '<b>Tighter going:</b> side-street footpaths are narrow and often blocked by parked scooters, and Ben Thanh and Bình Tây markets get crowded.']],
+    ['Da Nang & the Hyatt', [
+      '<b>At the Hyatt:</b> several pools and the beach on site.',
+      '<b>Beach:</b> November can bring big waves on Non Nước and Mỹ Khê, so the resort pools are often the calmer swim.',
+      '<b>Rainy-day options:</b> Mikazuki indoor water park, and Vincom Plaza with indoor play and family rooms.',
+      '<b>Ba Na Hills:</b> the cable car takes strollers, and Fantasy Park at the top is indoors.']],
+    ['Hoi An', [
+      '<b>Old town:</b> mostly car-free and flat, so easy with a stroller by day. It gets very crowded after dark around the bridge and river.',
+      '<b>Facilities:</b> few public toilets or change spots in the old town. Cafés and the Hyatt (20 minutes away) are the fallback.',
+      '<b>Basket boats and lantern boats</b> carry life jackets, though small toddler sizes aren\'t guaranteed.']],
+    ['Phu Quoc & Lahana', [
+      '<b>Lahana</b> is a hillside resort, so expect some slopes and steps between rooms and the pool.',
+      '<b>Calmest water:</b> Sao Beach is shallow and gentle. November seas on the west coast are usually calm too.',
+      '<b>Vinpearl Safari, VinWonders and Grand World</b> are flat and paved, with family toilets and shade. Kids under 1 m usually go free.']],
+    ['Airports', [
+      'Tan Son Nhat, Da Nang and Phu Quoc airports have family rooms, and families with small children are often waved into priority lanes.']]
+  ] },
+  { title: 'Services for Raffy', sub: 'Gear, childcare, dining, transport, health', icon: 'shop', groups: [
+    ['Baby gear & supplies', [
+      '<b>Con Cưng</b>: a nationwide mother-and-baby chain with pink shopfronts, for nappies, formula, toddler snacks, swimwear and toys.',
+      '<b>Grab Mart</b> delivers baby supplies and groceries straight to the hotel.',
+      'Clip-on stroller fans and cooling towels cost a few dollars at Con Cưng, Guardian stores and markets. Very handy in 32°C heat.',
+      'Bigger Vietnamese restaurants often have a <span class="vn">phòng riêng</span> (private room) that is free for a group of seven, giving Raffy space to roam away from the crowd.']],
+    ['Play spots', [
+      '<b>Indoor play centres</b> (tiNiWorld and similar) in the big malls in Saigon and Da Nang, air-conditioned and good for rainy hours.',
+      '<b>Hyatt Regency Danang:</b> several pools and the beach on site.',
+      '<b>Phu Quoc:</b> VinWonders and Grand World have kids\' play zones and family facilities.']],
+    ['Family-friendly dining', [
+      '<span class="vn">Cà phê sân vườn</span> (garden cafés) are leafy courtyard cafés found all over Saigon and Da Nang, with room to wander, fish ponds and sometimes swings. Locals bring their kids there to unwind.',
+      'Resort restaurants at the Hyatt and Lahana are the easiest sit-down meals with a little one.']],
+    ['Transport', [
+      '<b>Grab</b> and <b>Xanh SM</b> (green electric taxis) have 7-seat cars, so the whole family fits in one.',
+      'Taxis rarely have car seats. Hotel-booked private drivers can sometimes supply one on request.']],
+    ['Kids\' health', [
+      'Clinics with paediatricians: FV Hospital and Family Medical Practice (Saigon), Family Medical Practice and Vinmec (Da Nang), Vinmec Phú Quốc.',
+      '<b>Long Châu</b> and <b>Pharmacity</b> pharmacies stock children\'s medicines and rehydration salts (Oresol).']],
+    ['Laundry', [
+      'Hotels and local laundries wash by the kilo, often same-day, which is handy for little clothes.']]
+  ] },
+  { title: 'Food & drink to watch', sub: 'What to skip, allergies, water', icon: 'taste', groups: [
+    ['Worth skipping', [
+      '<span class="vn">Tiết canh</span>: raw blood pudding, sometimes on menus in the north and centre. Linked to serious infections.',
+      '<span class="vn">Rượu</span> in unlabelled bottles: homemade rice spirit can contain methanol. Stick to branded bottles.',
+      '<span class="vn">Nem chua</span> (fermented raw pork) and raw oysters or clams from street stalls.',
+      'Pre-cut fruit or cooked food that has been sitting out in the heat.']],
+    ['Usually fine', [
+      'Busy stalls where food is cooked fresh in front of you. A crowd of locals is the best sign.',
+      'Ice in cities is factory-made: tube-shaped with a hole in the middle.',
+      'Raw herbs and salads at popular restaurants. At quiet street carts, some people skip them for the first few days.']],
+    ['Allergies & sensitivities', [
+      'Peanuts are a common garnish and turn up in sauces. Shrimp paste (<span class="vn">mắm tôm</span>) and fish sauce are in many dishes, and MSG is widely used.',
+      'Handy phrases: <span class="vn">Không đậu phộng</span> (no peanuts), <span class="vn">Tôi bị dị ứng hải sản</span> (I\'m allergic to seafood), <span class="vn">Không bột ngọt</span> (no MSG), <span class="vn">Không cay</span> (not spicy).',
+      'The Translator above can turn a longer allergy note into Vietnamese to show staff.']],
+    ['Water', [
+      'Tap water isn\'t drinkable. Bottled water is cheap everywhere, and hotels usually leave free bottles in the room.',
+      'Durian smells strong enough that most hotels ban it from rooms, so eat it at the market.']]
+  ] }
+];
+
+const kitCard = k => `
+    <details class="card spot kit">
+      <summary><span class="ki">${ico(k.icon)}</span><span class="sum"><h3>${k.title}</h3><span class="muted">${k.sub}</span></span>${chev}</summary>
+      <div class="spot-body">
+        ${k.groups.map(gp => `<div class="kit-group"><span class="eyebrow">${gp[0]}</span>${gp[1].map(r => `<p class="kit-row">${r}</p>`).join('')}</div>`).join('')}
+      </div>
+    </details>`;
+
+function viewKit() {
+  const rate = store.get('rate', 18100);
+  return `<section class="view">
+    <div class="section-head"><span class="eyebrow">Đồ nghề · Handy stuff</span><h1>Toolkit</h1></div>
+
+    <details class="card spot kit">
+      <summary><span class="ki">${ico('local')}</span><span class="sum"><h3>Translator</h3><span class="muted">English ↔ Vietnamese</span></span>${chev}</summary>
+      <div class="spot-body">
+        <div class="tr-dir" role="group" aria-label="Direction">
+          <button type="button" data-dir="en" aria-pressed="true">English → Tiếng Việt</button>
+          <button type="button" data-dir="vi" aria-pressed="false">Tiếng Việt → English</button>
+        </div>
+        <label class="sr" for="tr-in">Text to translate</label>
+        <textarea id="tr-in" rows="3" placeholder="e.g. Can we have a table for seven, with a high chair?"></textarea>
+        <div class="row">
+          <button type="button" class="btn" id="tr-go">Translate</button>
+          <button type="button" class="btn ghost" id="tr-mic">🎤 Speak</button>
+          <a class="btn ghost" id="tr-listen" href="https://translate.google.com/" target="_blank" rel="noopener">▶ Listen</a>
+          <a class="btn ghost" id="tr-g" href="https://translate.google.com/?sl=en&tl=vi&op=translate" target="_blank" rel="noopener">Open in Google Translate</a>
+        </div>
+        <div class="tr-out" id="tr-out" hidden>
+          <p id="tr-text"></p>
+          <div class="tr-acts">
+            <button type="button" class="copy speak-btn" id="tr-speak" hidden>▶ Speak</button>
+            <a class="copy speak-btn" id="tr-speak-link" target="_blank" rel="noopener" hidden>▶ Listen</a>
+            <button type="button" class="copy" id="tr-copy">Copy</button>
+          </div>
+        </div>
+        <p class="hint" id="tr-note" hidden></p>
+      </div>
+    </details>
+
+    <details class="card spot kit">
+      <summary><span class="ki">${ico('shop')}</span><span class="sum"><h3>Currency Converter</h3><span class="muted">AUD ↔ VND and typical prices</span></span>${chev}</summary>
+      <div class="spot-body">
+      <div class="conv">
+        <div class="field"><label for="aud">AUD</label><input id="aud" inputmode="decimal" value="10"></div>
+        <div class="field"><label for="vnd">VND</label><input id="vnd" inputmode="numeric" value="${(10 * rate).toLocaleString('en-AU')}"></div>
+      </div>
+      <div class="field"><label for="rate">1 AUD = ? VND</label><input id="rate" inputmode="numeric" value="${rate}"></div>
+      <div class="row"><button type="button" class="btn ghost sm" id="rate-refresh">↻ Refresh live rate</button><span class="muted rate-status" id="rate-status">${rateStatus()}</span></div>
+      <div class="prices" id="prices"></div>
+      </div>
+    </details>
+
+${RAFFY_KIT.filter(k => k.icon === 'taste').map(kitCard).join('')}
+
+    <details class="card spot kit">
+      <summary><span class="ki">${ico('local')}</span><span class="sum"><h3>Phrases</h3><span class="muted">10 handy words, with copy</span></span>${chev}</summary>
+      <div class="spot-body">
+      <div>${PHRASES.map(p => `<div class="phrase"><div><div class="vn">${p[0]}</div><div class="muted" style="font-size:.85rem">${p[1]}</div></div><span class="tr-acts">${canSpeak ? `<button class="copy speak-btn" data-speak="${p[0]}" aria-label="Speak ${p[1]}">▶</button>` : `<a class="copy speak-btn" href="${listenUrl(p[0], 'vi')}" target="_blank" rel="noopener" aria-label="Listen to ${p[1]}">▶</a>`}<button class="copy" data-copy="${p[0]}">Copy</button></span></div>`).join('')}</div>
+      </div>
+    </details>
+
+${RAFFY_KIT.filter(k => k.icon !== 'taste').map(kitCard).join('')}
+
+    <details class="card spot kit">
+      <summary><span class="ki">${ico('night')}</span><span class="sum"><h3>Emergency</h3><span class="muted">Ambulance 115 · Police 113</span></span>${chev}</summary>
+      <div class="spot-body">
+      <div class="sos">
+        <span>Ambulance</span><b>115</b>
+        <span>Police</span><b>113</b>
+        <span>Fire</span><b>114</b>
+        <span>Australian Consulate-General, HCMC</span><b>+84 28 3521 8100</b>
+        <span>DFAT 24/7 Consular Emergency Centre</span><b>+61 2 6261 3305</b>
+      </div>
+      <p class="muted" style="font-size:.82rem">Check these numbers on smartraveller.gov.au before you go. Hospitals with English-speaking staff include FV Hospital (HCMC) and Family Medical Practice (HCMC & Da Nang).</p>
+      </div>
+    </details>
+  </section>`;
+}
+
+const VIEWS = { trip: viewTrip, flights: viewFlights, eat: viewEat, do: viewDo, kit: viewKit };
+let cur = 'trip';
+
+function priceRef(rate) {
+  const items = [['Bowl of phở', 55000], ['Bánh mì', 30000], ['Iced coffee (cà phê sữa đá)', 25000], ['Grab car, ~5 km', 70000], ['Coconut', 30000], ['Family seafood dinner for 7', 2000000]];
+  return items.map(i => `<span>${i[0]}</span><b>${i[1].toLocaleString('en-AU')}₫ · $${(i[1] / rate).toFixed(2)}</b>`).join('');
+}
+
+function render(tab) {
+  cur = VIEWS[tab] ? tab : 'trip';
+  $('#app').innerHTML = VIEWS[cur]();
+  document.querySelectorAll('.tabs button').forEach(b => b.setAttribute('aria-current', b.dataset.tab === cur ? 'page' : 'false'));
+  try { history.replaceState(null, '', '#' + cur); } catch (e) {}
+  if (cur === 'kit') wireKit();
+}
+
+// Text to speech with the device's own voices (Web Speech API). Vietnamese needs a vi-VN voice on the phone.
+const canSpeak = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance === 'function';
+function speak(text, lang) {
+  if (!canSpeak || !text) return;
+  try {
+    const synth = window.speechSynthesis;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = lang === 'vi' ? 'vi-VN' : 'en-AU';
+    const voices = synth.getVoices();
+    const v = voices.find(x => x.lang && x.lang.toLowerCase().startsWith(lang));
+    if (v) u.voice = v;
+    else if (lang === 'vi' && voices.length) toast('No Vietnamese voice on this device. Add one in your phone\'s text-to-speech settings.');
+    u.rate = 0.9;
+    synth.speak(u);
+  } catch (e) { toast('Speech isn\'t available here.'); }
+}
+const listenUrl = (text, lang) => `https://translate.google.com/?sl=${lang}&tl=${lang === 'vi' ? 'en' : 'vi'}&op=translate&text=${encodeURIComponent(text)}`;
+if (canSpeak) { try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices(); } catch (e) {} }
+
+function wireTranslator() {
+  const box = $('#tr-in'), go = $('#tr-go'), out = $('#tr-out'), txt = $('#tr-text'), note = $('#tr-note'), gl = $('#tr-g');
+  if (!box) return;
+  let dir = 'en', ctl = null;
+  const say = m => { note.textContent = m; note.hidden = !m; };
+  const syncLink = () => {
+    const [sl, tl] = dir === 'en' ? ['en', 'vi'] : ['vi', 'en'];
+    gl.href = `https://translate.google.com/?sl=${sl}&tl=${tl}&op=translate&text=${encodeURIComponent(box.value.trim())}`;
+    box.placeholder = dir === 'en' ? 'e.g. Can we have a table for seven, with a high chair?' : 'Dán hoặc gõ tiếng Việt ở đây…';
+  };
+  document.querySelectorAll('[data-dir]').forEach(b => b.addEventListener('click', () => {
+    dir = b.dataset.dir;
+    document.querySelectorAll('[data-dir]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    out.hidden = true; say(''); syncLink();
+  }));
+  box.addEventListener('input', syncLink);
+  go.addEventListener('click', async () => {
+    const text = box.value.trim(); if (!text) { box.focus(); return; }
+    const sample = window.claude && window.claude.use ? await window.claude.use('sample') : null;
+    if (!sample) { say('Live translation is only available when the app is opened in Claude. Use Google Translate instead.'); return; }
+    if (ctl) ctl.abort();
+    ctl = new AbortController();
+    go.disabled = true; out.hidden = false; txt.className = 'muted'; txt.textContent = 'Translating…'; say('');
+    const prompt = dir === 'en'
+      ? `Translate this into natural, polite spoken Vietnamese (southern Vietnam usage) that a tourist can show or say to a local. Reply with only the Vietnamese, no notes or romanisation.\n\n${text}`
+      : `Translate this Vietnamese into natural English. Reply with only the English, no notes.\n\n${text}`;
+    try {
+      await sample(prompt, { modelTier: 'quick', signal: ctl.signal, onText: ({ text: t }) => { txt.className = dir === 'en' ? 'vn tr-big' : 'tr-big'; txt.textContent = t; } });
+    } catch (e) {
+      if (e.code === 'cancelled') return;
+      txt.textContent = e.text || ''; if (!e.text) out.hidden = true;
+      say(e.code === 'not_granted' || e.code === 'sampling_disabled' ? 'Translation wasn\'t allowed here. Use Google Translate instead.'
+        : e.code === 'rate_limited' ? 'Too many translations just now. Try again in a minute.'
+        : 'Couldn\'t translate that. Try again, or use Google Translate.');
+    } finally { go.disabled = false; }
+  });
+  // Speak: the page can't use the microphone itself, so open the keyboard for its built-in voice typing
+  $('#tr-mic').addEventListener('click', () => {
+    box.focus();
+    toast(dir === 'en' ? 'Tap the 🎤 on your keyboard and speak in English' : 'Tap the 🎤 on your keyboard to speak Vietnamese (switch keyboard language if needed)');
+  });
+  // Always-visible Listen: reads the translation if there is one, otherwise what was typed
+  $('#tr-listen').addEventListener('click', e => {
+    const hasOut = !out.hidden && txt.textContent && txt.className !== 'muted';
+    const text = hasOut ? txt.textContent : box.value.trim();
+    const lang = hasOut ? (dir === 'en' ? 'vi' : 'en') : (dir === 'en' ? 'en' : 'vi');
+    if (!text) { e.preventDefault(); box.focus(); toast('Type something first'); return; }
+    if (canSpeak) { e.preventDefault(); speak(text, lang); }
+    else e.currentTarget.href = listenUrl(text, lang);
+  });
+  const sp = $('#tr-speak'), spl = $('#tr-speak-link');
+  sp.hidden = !canSpeak; spl.hidden = canSpeak;
+  sp.addEventListener('click', () => speak(txt.textContent, dir === 'en' ? 'vi' : 'en'));
+  // Where the viewer has no built-in speech (e.g. some in-app browsers), open the text in Google Translate to use its speaker button
+  spl.addEventListener('click', () => { spl.href = listenUrl(txt.textContent, dir === 'en' ? 'vi' : 'en'); });
+  $('#tr-copy').addEventListener('click', () => {
+    const t = txt.textContent;
+    try { navigator.clipboard.writeText(t).then(() => toast('Copied'), () => toast(t)); } catch (e) { toast(t); }
+  });
+}
+
+function wireKit() {
+  wireTranslator();
+  const aud = $('#aud'), vnd = $('#vnd'), rateEl = $('#rate'), prices = $('#prices');
+  const num = s => parseFloat(String(s).replace(/[^0-9.]/g, '')) || 0;
+  const rate = () => num(rateEl.value) || 18100;
+  const refresh = () => prices.innerHTML = priceRef(rate());
+  aud.addEventListener('input', () => vnd.value = Math.round(num(aud.value) * rate()).toLocaleString('en-AU'));
+  vnd.addEventListener('input', () => aud.value = (num(vnd.value) / rate()).toFixed(2));
+  rateEl.addEventListener('input', () => { store.set('rate', rate()); store.set('rateAt', null); $('#rate-status').textContent = 'Using your own rate'; aud.dispatchEvent(new Event('input')); refresh(); });
+  const status = $('#rate-status'), btn = $('#rate-refresh');
+  const pull = async () => {
+    btn.disabled = true; status.textContent = 'Checking live rate…';
+    const r = await fetchLiveRate();
+    btn.disabled = false;
+    if (r) { rateEl.value = Math.round(r); aud.dispatchEvent(new Event('input')); refresh(); status.textContent = rateStatus(); }
+    else status.textContent = 'Couldn\'t reach the live rate. Using the last saved rate.';
+  };
+  btn.addEventListener('click', pull);
+  // Refresh quietly when the saved rate is more than 6 hours old
+  const at = store.get('rateAt', 0);
+  if (!at || Date.now() - at > 6 * 3600e3) pull();
+  refresh();
+}
+
+// Live AUD→VND rate from free, no-key exchange-rate feeds (works on mobile data or wifi;
+// blocked inside the claude.ai viewer, where the saved or typed rate is used instead).
+const RATE_SOURCES = [
+  ['https://open.er-api.com/v6/latest/AUD', j => j && j.rates && j.rates.VND],
+  ['https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/aud.json', j => j && j.aud && j.aud.vnd]
+];
+async function fetchLiveRate() {
+  for (const [url, pick] of RATE_SOURCES) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) continue;
+      const v = Number(pick(await res.json()));
+      if (v > 1000 && v < 100000) { store.set('rate', Math.round(v)); store.set('rateAt', Date.now()); return v; }
+    } catch (e) { /* try the next source */ }
+  }
+  return null;
+}
+function rateStatus() {
+  const at = store.get('rateAt', 0);
+  if (!at) return 'Approximate rate. Tap refresh for the live one.';
+  const d = new Date(at);
+  return `Live rate · updated ${d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })} ${d.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' })}`;
+}
+
+document.addEventListener('click', e => {
+  const tab = e.target.closest('[data-tab]');
+  if (tab) { render(tab.dataset.tab); window.scrollTo(0, 0); return; }
+  const stop = e.target.closest('.stop-btn');
+  if (stop) {
+    const card = stop.parentElement, isOpen = card.hasAttribute('open');
+    document.querySelectorAll('.stop[open]').forEach(c => { c.removeAttribute('open'); c.querySelector('.stop-btn').setAttribute('aria-expanded', 'false'); });
+    if (!isOpen) { card.setAttribute('open', ''); stop.setAttribute('aria-expanded', 'true'); }
+    store.set('open', isOpen ? '' : card.dataset.stage);
+    return;
+  }
+  const fl = e.target.closest('[data-filter]');
+  if (fl) {
+    const k = 'f-' + fl.dataset.filter, v = fl.dataset.toggle && store.get(k, '') === fl.dataset.v ? '' : fl.dataset.v;
+    store.set(k, v); render(cur);
+    const list = v && fl.dataset.toggle ? document.querySelector('.list-h') : null;
+    if (list) list.scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'start' });
+    return;
+  }
+  const rv = e.target.closest('.reveal');
+  if (rv) { rv.textContent = rv.textContent === 'Tap to show' ? rv.dataset.ref : 'Tap to show'; return; }
+  const spk = e.target.closest('[data-speak]');
+  if (spk) { speak(spk.dataset.speak, 'vi'); return; }
+  const cp = e.target.closest('[data-copy]');
+  if (cp) {
+    const txt = cp.dataset.copy;
+    const ok = () => toast('Copied: ' + txt);
+    try { navigator.clipboard.writeText(txt).then(ok, () => toast(txt)); } catch (err) { toast(txt); }
+  }
+});
+
+// Live night scene: Hoi An's old town across the Thu Bon river, lantern strings swaying overhead,
+// candle lanterns drifting on the water with wobbling reflections, and soft out-of-focus bokeh.
+function seeded(a) { return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const LANTERN_HUES = ['#FF6A3D', '#FFB13B', '#FFD25C', '#F2557A', '#E03A3A', '#3FC1A5', '#FF8A2A'];
+const S = { ctx: null, still: null };
+function hexA(hex, a) { const h = hex.replace('#', ''); return `rgba(${parseInt(h.substr(0, 2), 16)},${parseInt(h.substr(2, 2), 16)},${parseInt(h.substr(4, 2), 16)},${a})`; }
+function glow(g, x, y, r, col, a) {
+  const gr = g.createRadialGradient(x, y, 0, x, y, r);
+  gr.addColorStop(0, hexA(col, a)); gr.addColorStop(.35, hexA(col, a * .45)); gr.addColorStop(1, hexA(col, 0));
+  g.fillStyle = gr; g.fillRect(x - r, y - r, r * 2, r * 2);
+}
+function buildScene() {
+  const c = $('#bg'); if (!c || !c.getContext) return false;
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.5), W = innerWidth, H = innerHeight;
+  if (!W || !H) return false;
+  c.width = W * dpr; c.height = H * dpr;
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const r = seeded(2026), sc = Math.max(.8, Math.min(1.6, W / 420)), hz = H * .6;
+  Object.assign(S, { ctx: g, W, H, dpr, hz, sc });
+
+  // Static layer: sky, old-town houses, lit windows
+  const still = document.createElement('canvas'); still.width = W * dpr; still.height = H * dpr;
+  const s = still.getContext('2d'); s.setTransform(dpr, 0, 0, dpr, 0, 0);
+  let gr = s.createLinearGradient(0, 0, 0, hz);
+  gr.addColorStop(0, '#3B4A6E'); gr.addColorStop(.45, '#8A6A86'); gr.addColorStop(.8, '#E39A7A'); gr.addColorStop(1, '#F6C287');
+  s.fillStyle = gr; s.fillRect(0, 0, W, hz);
+  glow(s, W * .5, hz, W * .95, '#FFD9A0', .4);
+  for (let i = 0; i < 18; i++) { s.fillStyle = `rgba(255,255,255,${.12 + r() * .25})`; s.fillRect(r() * W, r() * hz * .3, 1, 1); }
+  // soft dusk clouds
+  for (let i = 0; i < 6; i++) { const cx = r() * W, cy = hz * (.25 + r() * .45), cw = (90 + r() * 140) * sc; s.fillStyle = 'rgba(255,214,190,.12)'; s.beginPath(); s.ellipse(cx, cy, cw, cw * .12, 0, 0, 7); s.fill(); }
+
+  const windows = [];
+  let x = -10;
+  while (x < W + 10) {
+    const w = (46 + r() * 56) * sc, h = (34 + r() * 46) * sc, top = hz - h;
+    const wall = ['#D6A44E', '#C8923F', '#E0B35E', '#B9853C'][Math.floor(r() * 4)];
+    gr = s.createLinearGradient(0, top, 0, hz); gr.addColorStop(0, wall); gr.addColorStop(1, '#7A5228');
+    s.fillStyle = gr; s.fillRect(x, top, w + 1, h);
+    // tiled roof with a slight upturn
+    const oh = 6 * sc, rh = (10 + r() * 8) * sc;
+    s.fillStyle = '#5A3425';
+    s.beginPath(); s.moveTo(x - oh, top + 2); s.quadraticCurveTo(x + w / 2, top - rh * .2, x + w + oh, top + 2); s.lineTo(x + w - 4 * sc, top - rh); s.lineTo(x + 4 * sc, top - rh); s.closePath(); s.fill();
+    // lit doorways and shutters
+    const n = 1 + Math.floor(r() * 3);
+    for (let k = 0; k < n; k++) {
+      const ww = (7 + r() * 9) * sc, wh = (9 + r() * 14) * sc, wx = x + (k + .5) * w / n - ww / 2, wy = hz - wh - (r() < .5 ? 2 : h * .45);
+      const col = r() < .82 ? '#FFB54D' : '#FF7A3C';
+      glow(s, wx + ww / 2, wy + wh / 2, ww * 3, col, .35);
+      s.fillStyle = col; s.fillRect(wx, wy, ww, wh);
+      s.fillStyle = 'rgba(120,60,20,.45)'; s.fillRect(wx + ww / 2 - .5, wy, 1, wh);
+      windows.push({ x: wx + ww / 2, w: ww, col, y: wy + wh });
+    }
+    if (r() < .55) { const lx = x + w * (.2 + r() * .6), ly = top + 8 * sc, lc = LANTERN_HUES[Math.floor(r() * 4)]; glow(s, lx, ly, 16 * sc, lc, .6); s.fillStyle = lc; s.beginPath(); s.ellipse(lx, ly, 3.2 * sc, 4.2 * sc, 0, 0, 7); s.fill(); }
+    x += w + (r() < .3 ? 6 * sc : 0);
+  }
+  // riverbank edge
+  s.fillStyle = '#4A2E1E'; s.fillRect(0, hz - 1, W, 3 * sc);
+
+  // Lantern strings overhead
+  const strings = [];
+  for (let k = 0; k < 3; k++) {
+    const y1 = H * (.04 + k * .09) + r() * 20, y2 = H * (.08 + k * .07) + r() * 20, sag = (30 + r() * 40) * sc;
+    const pts = [], n = Math.round(W / (26 * sc));
+    for (let i = 1; i < n; i++) { const t = i / n; pts.push({ t, col: LANTERN_HUES[Math.floor(r() * LANTERN_HUES.length)], size: (5 + r() * 4) * sc * (1 - k * .18), ph: r() * 6 }); }
+    strings.push({ y1, y2, sag, pts });
+  }
+  // Floating candle lanterns on the water
+  const floats = [], nf = Math.round(W / 24) + 6;
+  for (let i = 0; i < nf; i++) {
+    const d = Math.pow(r(), .8);
+    floats.push({ x: r() * W, d, ph: r() * 6, col: LANTERN_HUES[Math.floor(r() * LANTERN_HUES.length)], v: 2 + d * 5 });
+  }
+  floats.sort((a, b) => a.d - b.d);
+  // Out-of-focus bokeh
+  const bokeh = [];
+  for (let i = 0; i < 10; i++) bokeh.push({ x: r() * W, y: r() * H, rad: (18 + r() * 40) * sc, col: ['#FFD9A0', '#FFB54D', '#FFC2A8', '#FFE7B0'][Math.floor(r() * 4)], a: .05 + r() * .06, v: 1 + r() * 2.5 });
+
+  Object.assign(S, { still, windows, strings, floats, bokeh, boat: { x: W * .7 } });
+  return true;
+}
+function drawScene(t, dt) {
+  const { ctx: g, W, H, hz, sc, dpr } = S; if (!g || !S.still || !S.still.width) return;
+  g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(S.still, 0, 0); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  // Water
+  let gr = g.createLinearGradient(0, hz, 0, H);
+  gr.addColorStop(0, '#D99A68'); gr.addColorStop(.3, '#8A5E62'); gr.addColorStop(1, '#3E3348');
+  g.fillStyle = gr; g.fillRect(0, hz + 2 * sc, W, H - hz);
+  // Mirrored glow of the town and sky
+  glow(g, W * .5, hz + 10, W * .8, '#FFD9A0', .22);
+  g.fillStyle = 'rgba(255,230,200,.08)';
+  for (let k = 0; k < 14; k++) { const y = hz + 8 + k * (H - hz) / 15, x = ((k * 131 + t * 4) % (W + 120)) - 60; g.fillRect(x, y, (40 + k * 4) * sc, 1); }
+
+  // Window reflections: broken, wobbling streaks
+  g.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < S.windows.length; i++) {
+    const wnd = S.windows[i], len = (H - hz) * (.35 + (i % 5) * .08);
+    for (let y = hz + 4; y < hz + len; y += 3 * sc) {
+      const k = (y - hz) / len, off = Math.sin(y * .12 + t * .9 + i) * (1.2 + k * 4) * sc;
+      g.fillStyle = hexA(wnd.col, .17 * (1 - k));
+      g.fillRect(wnd.x - wnd.w * (.5 + k * .3) + off, y, wnd.w * (1 + k * .6), 1.4 * sc);
+    }
+  }
+  g.globalCompositeOperation = 'source-over';
+
+  // Lantern strings, swaying
+  for (const st of S.strings) {
+    const pos = tt => { const x = tt * W, y = st.y1 + (st.y2 - st.y1) * tt + Math.sin(tt * Math.PI) * st.sag; return [x, y]; };
+    g.strokeStyle = 'rgba(70,40,30,.7)'; g.lineWidth = 1; g.beginPath();
+    for (let i = 0; i <= 40; i++) { const p = pos(i / 40); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); } g.stroke();
+    for (const L of st.pts) {
+      const [px, py] = pos(L.t), sw = Math.sin(t * .5 + L.ph) * 1.8 * sc, cx = px + sw, cy = py + L.size * 1.6, flick = .9 + Math.sin(t * 3 + L.ph * 3) * .03;
+      g.strokeStyle = 'rgba(70,40,30,.6)'; g.beginPath(); g.moveTo(px, py); g.lineTo(cx, cy - L.size); g.stroke();
+      glow(g, cx, cy, L.size * 4.2, L.col, .45 * flick);
+      g.fillStyle = L.col; g.beginPath(); g.ellipse(cx, cy, L.size * .85, L.size, 0, 0, 7); g.fill();
+      g.fillStyle = 'rgba(255,240,200,.5)'; g.beginPath(); g.ellipse(cx - L.size * .2, cy - L.size * .2, L.size * .3, L.size * .45, 0, 0, 7); g.fill();
+      g.fillStyle = '#2A170C'; g.fillRect(cx - L.size * .45, cy - L.size * 1.05, L.size * .9, L.size * .18); g.fillRect(cx - L.size * .45, cy + L.size * .88, L.size * .9, L.size * .18);
+    }
+  }
+
+  // Sampan drifting slowly with a stern lantern
+  const b = S.boat, by = hz + (H - hz) * .3, bs = sc * 1.1;
+  b.x -= dt * 3.5 * sc; if (b.x < -80 * bs) b.x = W + 80 * bs;
+  const bob = Math.sin(t * .8) * 1;
+  g.fillStyle = 'rgba(255,200,120,.16)'; g.fillRect(b.x + 18 * bs - 3, by + 4, 6, 40 * bs);
+  g.fillStyle = '#3A2420';
+  g.beginPath(); g.moveTo(b.x - 34 * bs, by - 5 * bs + bob); g.quadraticCurveTo(b.x, by + 6 * bs + bob, b.x + 34 * bs, by - 5 * bs + bob); g.lineTo(b.x + 26 * bs, by + 2 * bs + bob); g.quadraticCurveTo(b.x, by + 6 * bs + bob, b.x - 26 * bs, by + 2 * bs + bob); g.closePath(); g.fill();
+  g.beginPath(); g.moveTo(b.x - 14 * bs, by - 3 * bs + bob); g.quadraticCurveTo(b.x - 2 * bs, by - 16 * bs + bob, b.x + 10 * bs, by - 3 * bs + bob); g.fill();
+  glow(g, b.x + 22 * bs, by - 10 * bs + bob, 22 * bs, '#FFB54D', .7);
+  g.fillStyle = '#FFB54D'; g.beginPath(); g.ellipse(b.x + 22 * bs, by - 10 * bs + bob, 3 * bs, 3.8 * bs, 0, 0, 7); g.fill();
+
+  // Floating candle lanterns (far to near)
+  for (const f of S.floats) {
+    f.x -= dt * f.v * sc; if (f.x < -20) f.x = W + 20;
+    const y = hz + 6 + f.d * (H - hz) * .92 + Math.sin(t * .7 + f.ph) * (1 + f.d * 1.5), z = (2.5 + f.d * 9) * sc, fl = .9 + Math.sin(t * 4 + f.ph * 4) * .05;
+    g.globalCompositeOperation = 'lighter';
+    for (let k = 0; k < 6; k++) { const ry = y + z * .6 + k * z * .9, off = Math.sin(ry * .2 + t * 2 + f.ph) * z * .3; g.fillStyle = hexA(f.col, .22 * (1 - k / 6) * fl); g.fillRect(f.x - z * .5 + off, ry, z, z * .35); }
+    glow(g, f.x, y - z * .3, z * 4.5, f.col, .5 * fl);
+    g.globalCompositeOperation = 'source-over';
+    g.fillStyle = f.col; g.beginPath(); g.moveTo(f.x - z * .7, y - z * .2); g.lineTo(f.x + z * .7, y - z * .2); g.lineTo(f.x + z * .5, y + z * .4); g.lineTo(f.x - z * .5, y + z * .4); g.closePath(); g.fill();
+    g.fillStyle = 'rgba(255,214,140,.55)'; g.beginPath(); g.moveTo(f.x - z * .7, y - z * .2); g.lineTo(f.x, y - z * .9); g.lineTo(f.x + z * .7, y - z * .2); g.closePath(); g.fill();
+    g.fillStyle = `rgba(255,248,220,${fl})`; g.beginPath(); g.ellipse(f.x, y - z * .45, z * .14, z * .26, 0, 0, 7); g.fill();
+  }
+
+  // Bokeh drifting up, like an out-of-focus foreground
+  g.globalCompositeOperation = 'lighter';
+  for (const k of S.bokeh) {
+    k.y -= dt * k.v; if (k.y < -k.rad) k.y = H + k.rad;
+    glow(g, k.x + Math.sin(t * .3 + k.rad) * 6, k.y, k.rad, k.col, k.a);
+  }
+  g.globalCompositeOperation = 'source-over';
+
+  // Vignette
+  gr = g.createRadialGradient(W / 2, H * .55, Math.min(W, H) * .25, W / 2, H * .55, Math.max(W, H) * .8);
+  gr.addColorStop(0, 'rgba(60,30,30,0)'); gr.addColorStop(1, 'rgba(60,30,30,.28)');
+  g.fillStyle = gr; g.fillRect(0, 0, W, H);
+  // Soft dimming so the glass panels stand out from the scene
+  g.fillStyle = 'rgba(28,14,18,.28)'; g.fillRect(0, 0, W, H);
+}
+const calm = (() => { try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } })();
+let lastT = 0, acc = 0;
+function loop(now) {
+  const dt = Math.min(.1, (now - lastT) / 1000 || 0); lastT = now; acc += dt;
+  if (acc >= 1 / 30 && !document.hidden) { drawScene(now / 1000, acc); acc = 0; }
+  requestAnimationFrame(loop);
+}
+let bgT; const rebuild = () => { clearTimeout(bgT); bgT = setTimeout(() => { if (buildScene()) drawScene(performance.now() / 1000, 0); }, 150); };
+addEventListener('resize', rebuild);
+buildScene(); drawScene(0, 0); if (!calm) requestAnimationFrame(loop);
+
+const start = (location.hash || '').slice(1);
+render(VIEWS[start] ? start : 'trip');
+setInterval(() => { if (cur === 'trip') { const h = document.querySelector('.hero'); if (h) { const tmp = document.createElement('div'); tmp.innerHTML = viewTrip(); h.replaceWith(tmp.querySelector('.hero')); } } }, 60000);
+</script>
+<script>
+// Offline support on GitHub Pages (https only)
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>
