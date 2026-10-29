@@ -214,6 +214,18 @@ details[open] > summary .chev-d { transform: rotate(90deg); }
 .mich { width: fit-content; font: 700 .62rem var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: #FFD9DE; background: rgba(196,56,74,.35); border: 1px solid rgba(255,140,155,.5); padding: 2px 7px; border-radius: 999px; margin-top: 2px; }
 .mich.star { color: #FFE9B0; background: rgba(196,56,74,.6); }
 .badges { display: flex; flex-wrap: wrap; gap: 4px; }
+.best { display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 18px; background: linear-gradient(145deg, rgba(196,56,74,.35), rgba(48,32,30,.75)); border: 1px solid rgba(255,140,155,.4); box-shadow: var(--shadow); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.best-h { display: flex; flex-direction: column; gap: 1px; }
+.best-h b { font: 700 1.05rem var(--f-display); }
+.best-h .muted { font-size: .76rem; }
+.best-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.best-card { all: unset; box-sizing: border-box; cursor: pointer; flex: none; width: 150px; display: flex; flex-direction: column; gap: 3px; padding: 10px 12px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); }
+.best-card b { font: 700 .92rem/1.2 var(--f-display); }
+.best-card .vn { font-size: .78rem; }
+.best-card .cost { margin-left: 0; margin-top: 4px; }
+.best-card:focus-visible { outline: 2px solid var(--lantern); }
+.best-r { font: 700 .74rem var(--f-mono); color: #CFF5E6; }
+.best-r small { font-weight: 500; opacity: .75; }
 .badges .mich { margin-top: 0; }
 .gstar { width: fit-content; font: 700 .62rem var(--f-mono); letter-spacing: .04em; color: var(--muted); background: rgba(255,255,255,.08); border: 1px solid var(--line); padding: 2px 7px; border-radius: 999px; }
 .gstar.hi { color: #CFF5E6; background: rgba(92,201,167,.2); border-color: rgba(92,201,167,.5); }
@@ -1057,6 +1069,12 @@ const GRATING = {
   'Mỳ Quảng Sứa Hồng Vân': [4.4, 299], 'Bánh Xèo Tôm Nhảy Cô Ba': [3.9, 737], 'Ăn Thôi': [4.8, 8219], 'Hải Sản Bé Ni 2': [4.8, 14854]
 };
 // Cheap and loved by both: a Michelin Bib Gourmand with 4.5+ on Google from 200+ reviews
+// Which everyday meal each Michelin Bib Gourmand pick also belongs to, so it shows in breakfast/lunch/dinner too
+const ALSO_MEAL = {
+  'Phở Minh': 'b', 'Phở Chào': 'b', 'Bánh Cuốn Tây Hồ 127': 'b', 'Hồng Phát': 'b', 'Bún Bò Huế 14B': 'b', 'Bò Kho Gánh': 'b',
+  'Bánh Canh Cua Bà Ba': 'l', 'Chị Mơ': 'l', 'Cục Gạch Quán': 'd',
+  'Bún Chả Cá 109': 'b', 'Mỳ Quảng Sứa Hồng Vân': 'b', 'Quán Nhân': 'l', 'Bánh Xèo 76': 'l', 'Bánh Xèo Tôm Nhảy Cô Ba': 'l', 'Thìa Gỗ': 'd', 'Ăn Thôi': 'd'
+};
 const isTopValue = x => isBib(x) && GRATING[x.place] && GRATING[x.place][0] >= 4.5 && GRATING[x.place][1] >= 200;
 const gBadge = x => { const g = GRATING[x.place]; return g ? `<span class="gstar${g[0] >= 4.5 ? ' hi' : ''}">Google ${g[0].toFixed(1)}★ <small>(${g[1].toLocaleString('en-AU')})</small></span>` : ''; };
 // Shown when a city isn't covered by the Michelin Guide (Vietnam 2026)
@@ -1082,12 +1100,23 @@ const byRating = (a, b) => ((GRATING[b.place] || [0])[0] - (GRATING[a.place] || 
 function viewEat() {
   let f = store.get('f-eat2', 'hcm'); if (!CITY_OPTS.some(o => o[0] === f)) f = 'hcm';
   const m = store.get('f-meal', ''), meal = MEALS.find(x => x[0] === m);
-  const inMeal = (x, k) => x.city === f && (k === 'm' ? isMich(x) : x.meal === k);
-  const items = meal ? TRIP.food.filter(x => inMeal(x, m)) : [];
+  const inMeal = (x, k) => x.city === f && (k === 'm' ? isMich(x) : (x.meal === k || ALSO_MEAL[x.place] === k));
+  // Cheap and top-rated first, then Michelin, then by Google rating
+  const rank = x => (isTopValue(x) ? 0 : isBib(x) ? 1 : 2);
+  const items = meal ? TRIP.food.filter(x => inMeal(x, m)).sort((a, b) => (m === 'm' ? 0 : rank(a) - rank(b)) || byRating(a, b)) : [];
+  const best = TRIP.food.filter(x => x.city === f && isTopValue(x)).sort(byRating);
   const top = items.filter(isTopValue).sort(byRating), bibs = items.filter(x => isBib(x) && !isTopValue(x)).sort(byRating), stars = items.filter(x => STARRED.has(x.place));
   return `<section class="view">
     <div class="section-head"><span class="eyebrow">Ăn gì? · Where locals eat</span><h1>Eat</h1></div>
     ${cityBar('eat2', f)}
+    ${best.length ? `<div class="best">
+      <div class="best-h"><b>Best cheap eats</b><span class="muted">Michelin-recommended · 4.5★+ on Google · mostly under A$10</span></div>
+      <div class="best-row">${best.map(x => { const g = GRATING[x.place]; return `
+        <button class="best-card" data-filter="meal" data-v="m">
+          <span class="best-r">${g[0].toFixed(1)}★ <small>${g[1].toLocaleString('en-AU')}</small></span>
+          <b>${x.place}</b><span class="vn">${x.dish}</span>${costPill(x.place)}
+        </button>`; }).join('')}</div>
+    </div>` : ''}
     <div class="tiles two">${MEALS.map(x => { const list = TRIP.food.filter(y => inMeal(y, x[0])), n = list.length; return `
       <button class="tile" data-k="${x[0]}" data-filter="meal" data-v="${x[0]}" data-toggle="1" aria-pressed="${m === x[0]}">
         <span class="tile-art" aria-hidden="true">${ico(x[0])}</span>${ico(x[0])}<span><b>${x[1]}</b><small>${n ? `${n} ${x[0] === 'm' ? 'picks' : 'spots'} · ${x[3]}` : 'Not covered yet'}</small><em>${list.slice(0, 2).map(y => x[0] === 'm' ? y.place : y.dish).join(' · ')}</em></span>
