@@ -190,6 +190,7 @@ svg .fill { fill: currentColor; fill-opacity: .28; stroke: none; }
 .tile[data-k="b"] { --g1: #F6B26B; --g2: #D9694F; }
 .tile[data-k="l"] { --g1: #E9C46A; --g2: #3F8F86; }
 .tile[data-k="d"] { --g1: #7A62A8; --g2: #2B2650; }
+.tile[data-k="m"] { --g1: #C4384A; --g2: #5A1424; }
 .tile[data-k="raffy"] { --g1: #F7A072; --g2: #D9567F; }
 .tile[data-k="relax"] { --g1: #5FB3A1; --g2: #2A6F80; }
 .tile[data-k="active"] { --g1: #86AD62; --g2: #3B6646; }
@@ -458,6 +459,14 @@ const TRIP = {
     { city: 'hoi', meal: 'l', place: 'Cơm Gà Bà Nga', area: 'Phan Châu Trinh, Hội An', dish: 'Cơm gà Hội An', en: 'Turmeric chicken rice', note: 'The neighbourhood rival to Bà Buội, preferred by many locals for its sauce and herbs.', tags: ['raffy','easy'] },
     { city: 'hoi', meal: 'd', place: 'White Rose', area: 'Hai Bà Trưng, Hội An', dish: 'Bánh bao bánh vạc', en: '"White rose" shrimp dumplings', note: 'The family kitchen that makes these delicate dumplings for the whole town. Pair with fried wontons.', tags: ['raffy','parents'] },
     { city: 'hoi', meal: 'd', place: 'Cửa Đại beach seafood shacks', area: 'Cửa Đại beach', dish: 'Nghêu hấp sả', en: 'Lemongrass-steamed clams', note: 'Plastic chairs on the sand where Hoi An families eat seafood at sunset. Simple and fresh.', tags: ['parents','beach'] },
+    // Michelin-starred (one star each, Michelin Guide Vietnam 2026)
+    { city: 'hcm', meal: 'm', place: 'Ănăn Saigon', area: 'Old Market area, District 1', dish: 'Modern street-food tasting menu', en: 'Vietnamese street classics reimagined', note: 'Chef Peter Cuong Franklin\'s playful take on Saigon street food, a short walk from Ben Thanh and Central Palace. Saigon Tasting Menu about US$115, chef\'s menu US$145.', tags: ['adults','parents'] },
+    { city: 'hcm', meal: 'm', place: 'Long Triều', area: 'District 1', dish: 'Cantonese tasting menu', en: 'Refined Cantonese and dim sum', note: 'Elegant Cantonese cooking, and a good fit if the parents prefer something less experimental. Tasting menu about 3,888,000₫ before service.', tags: ['parents','adults'] },
+    { city: 'hcm', meal: 'm', place: 'CieL', area: 'Ho Chi Minh City', dish: 'Chef\'s tasting menu', en: 'Around 10 creative small courses', note: 'A tasting menu of about ten small, inventive dishes. Recent prices are around 3,850,000₫ per person.', tags: ['adults'] },
+    { city: 'hcm', meal: 'm', place: 'Akuna', area: 'Ho Chi Minh City', dish: 'Six-course tasting menu', en: 'Australian chef Sam Aisbett, Vietnamese produce', note: 'An Aussie chef cooking with local ingredients, and the priciest star in the city: 4,900,000₫ before service and tax (about A$270).', tags: ['adults'] },
+    { city: 'hcm', meal: 'm', place: 'Upstairs', area: 'Ho Chi Minh City', dish: 'Tasting menu', en: 'Newly starred in 2026', note: 'The city\'s newest star. No public menu price, but Michelin puts it in the top price band, so expect over 3,000,000₫ a head.', tags: ['adults'] },
+    { city: 'hcm', meal: 'm', place: 'CoCo Dining', area: 'Ho Chi Minh City', dish: 'Chef-led tasting menu', en: 'Intimate fine dining', note: 'A small, chef-led restaurant that has held its star. Menu price isn\'t published, so ask when booking.', tags: ['adults'] },
+    { city: 'dad', meal: 'm', place: 'La Maison 1888', area: 'InterContinental Sun Peninsula, Son Tra', dish: 'French tasting menu', en: 'Seasonal French fine dining', note: 'Central Vietnam\'s only Michelin star, in a colonial-style villa at the InterContinental on the Son Tra peninsula (about 30 minutes from the Hyatt). The splurge of the list, roughly 6–7.6 million₫ per person for food.', tags: ['adults','parents'] },
     // Phu Quoc additions
     { city: 'pqc', meal: 'b', place: 'Bún Quậy Thanh Hùng', area: 'Dương Đông', dish: 'Bún quậy', en: '"Stirred" fish and prawn noodles', note: 'The other bún quậy institution. Islanders argue over whether it beats Kiến Xây.', tags: ['raffy','parents'] },
     { city: 'pqc', meal: 'b', place: 'Riverside coffee & bánh mì carts', area: 'Dương Đông river mouth', dish: 'Cà phê sữa đá & bánh mì', en: 'Iced milk coffee and a fresh baguette', note: 'Where fishermen and locals start the day, watching the boats come in.', tags: ['easy','parents'] },
@@ -881,6 +890,7 @@ const pass = (it, f) => f === 'all' || it.city === f || (it.tags || []).includes
 const ICON = {
   // Duotone line icons: a soft filled shape under a crisp outline
   nav: '<path class="fill" d="M3 11 21 3l-8 18-2-8z"/><path d="M3 11 21 3l-8 18-2-8z"/>',
+  m: '<path class="fill" d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/>',
   b: '<path class="fill" d="M5 11h12v3a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z"/><path d="M5 11h12v3a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5zM17 12.5h1.5a2 2 0 0 1 0 4H17M8 3.5c.8.9.8 2.1 0 3M11 3c.8.9.8 2.1 0 3M14 3.5c.8.9.8 2.1 0 3M3 21.5h16"/>',
   l: '<path class="fill" d="M3 12h18a9 7 0 0 1-18 0z"/><path d="M3 12h18a9 7 0 0 1-18 0zM8 19.5h8M15 3l-3 8M20 4l-6 7M7 6c.7.8.7 1.8 0 2.5M10 5c.7.8.7 1.8 0 2.5"/>',
   d: '<path class="fill" d="M7 6h10c1.5 2 1.5 9 0 11H7c-1.5-2-1.5-9 0-11z"/><path d="M12 2v2M10 4h4M7 6h10c1.5 2 1.5 9 0 11H7c-1.5-2-1.5-9 0-11zM12 6v11M9.2 6.3c-.9 3-.9 7.4 0 10.4M14.8 6.3c.9 3 .9 7.4 0 10.4M10 17h4v2h-4zM12 19v3"/>',
@@ -911,6 +921,7 @@ const COST = {
   'Bánh Xèo Bale Well': [150000,'p'], 'Cẩm Nam island stalls': [40000,'p'], 'Hoi An night market': [60000,'p'],
   'Bún Quậy Kiến Xây': [50000,'p'], 'Dương Đông morning market': [40000,'p'], 'Nhà Hàng Ra Khơi': [250000,'p'], 'Hàm Ninh pier restaurants': [350000,'p'],
   'Hải Sản Xin Chào': [350000,'p'], 'Dinh Cậu night market': [150000,'p'],
+  'Ănăn Saigon': [2900000,'p'], 'Long Triều': [3888000,'p'], 'CieL': [3850000,'p'], 'Akuna': [4900000,'p'], 'Upstairs': [3000000,'p'], 'La Maison 1888': [6800000,'p'],
   'Bánh Canh Nga': [40000,'p'], 'Cơm Gà A Hải': [50000,'p'], 'Hải Sản Bé Ni 2': [200000,'p'], 'Mì Quảng Ông Hai': [35000,'p'],
   'Central Market food hall': [50000,'p'], 'Cơm Gà Bà Nga': [50000,'p'], 'White Rose': [80000,'p'], 'Cửa Đại beach seafood shacks': [200000,'p'],
   'Bún Quậy Thanh Hùng': [50000,'p'], 'Riverside coffee & bánh mì carts': [35000,'p'], 'Rạch Vẹm floating restaurants': [300000,'p'],
@@ -1001,7 +1012,12 @@ function costLine(name) {
   return `<p class="cost-line">Rough cost: about ${c[0].toLocaleString('en-AU')}₫ ${UNIT_LONG[c[1]]} (≈ A$${aud < 10 ? aud.toFixed(1) : Math.round(aud)})</p>`;
 }
 
-const MEALS = [['b', 'Breakfast', 'Bữa sáng', '6–10am'], ['l', 'Lunch', 'Bữa trưa', '11am–2pm'], ['d', 'Dinner', 'Bữa tối', '5–10pm']];
+const MEALS = [['b', 'Breakfast', 'Bữa sáng', '6–10am'], ['l', 'Lunch', 'Bữa trưa', '11am–2pm'], ['d', 'Dinner', 'Bữa tối', '5–10pm'], ['m', 'Michelin stars', 'Sao Michelin', 'Fine dining']];
+// Shown when a city has no Michelin-starred restaurant (Michelin Guide Vietnam 2026)
+const MICHELIN_NONE = {
+  hoi: 'Hoi An has no Michelin-starred restaurant. The nearest is La Maison 1888 on the Son Tra peninsula, about 45 minutes away (see Da Nang).',
+  pqc: 'Phu Quoc isn\'t in the Michelin Guide yet. Michelin announced in October 2026 that the island\'s first picks arrive in the 2027 guide, so there are no stars to try this trip.'
+};
 function viewEat() {
   let f = store.get('f-eat2', 'hcm'); if (!CITY_OPTS.some(o => o[0] === f)) f = 'hcm';
   const m = store.get('f-meal', ''), meal = MEALS.find(x => x[0] === m);
@@ -1009,9 +1025,9 @@ function viewEat() {
   return `<section class="view">
     <div class="section-head"><span class="eyebrow">Ăn gì? · Where locals eat</span><h1>Eat</h1></div>
     ${cityBar('eat2', f)}
-    <div class="tiles three">${MEALS.map(x => { const n = TRIP.food.filter(y => y.city === f && y.meal === x[0]).length; return `
+    <div class="tiles two">${MEALS.map(x => { const n = TRIP.food.filter(y => y.city === f && y.meal === x[0]).length; return `
       <button class="tile" data-k="${x[0]}" data-filter="meal" data-v="${x[0]}" data-toggle="1" aria-pressed="${m === x[0]}">
-        <span class="tile-art" aria-hidden="true">${ico(x[0])}</span>${ico(x[0])}<span><b>${x[1]}</b><small>${n} spots · ${x[3]}</small><em>${TRIP.food.filter(y => y.city === f && y.meal === x[0]).slice(0, 2).map(y => y.dish).join(' · ')}</em></span>
+        <span class="tile-art" aria-hidden="true">${ico(x[0])}</span>${ico(x[0])}<span><b>${x[1]}</b><small>${n ? `${n} ${x[0] === 'm' ? 'starred' : 'spots'} · ${x[3]}` : 'None in this city yet'}</small><em>${TRIP.food.filter(y => y.city === f && y.meal === x[0]).slice(0, 2).map(y => y.dish).join(' · ')}</em></span>
       </button>`; }).join('')}</div>
     ${meal ? `<div class="stack">
       <div class="list-h"><h2>${meal[1]}</h2><span class="vn">${meal[2]}</span></div>
@@ -1027,7 +1043,8 @@ function viewEat() {
           ${chips(x.tags)}
         </div>
       </details>`).join('')}
-      <p class="hint">Costs are rough guesses per person. Say <span class="vn">không cay</span> for not spicy. Check opening hours on Google Maps.</p>
+      ${m === 'm' && !items.length ? `<p class="card muted">${MICHELIN_NONE[f] || 'No Michelin-starred restaurants here.'}</p>` : ''}
+      <p class="hint">${m === 'm' ? 'Prices are tasting menus per person before service and tax. All hold one Michelin star (Michelin Guide Vietnam 2026). Book a few weeks ahead.' : 'Costs are rough guesses per person. Say <span class="vn">không cay</span> for not spicy. Check opening hours on Google Maps.'}</p>
     </div>` : `<p class="hint">Tap a meal to see where locals eat.</p>`}
   </section>`;
 }
