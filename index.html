@@ -213,6 +213,11 @@ details[open] > summary .chev-d { transform: rotate(90deg); }
 .spot .sum .vn { font-size: .95rem; }
 .mich { width: fit-content; font: 700 .62rem var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: #FFD9DE; background: rgba(196,56,74,.35); border: 1px solid rgba(255,140,155,.5); padding: 2px 7px; border-radius: 999px; margin-top: 2px; }
 .mich.star { color: #FFE9B0; background: rgba(196,56,74,.6); }
+.badges { display: flex; flex-wrap: wrap; gap: 4px; }
+.badges .mich { margin-top: 0; }
+.gstar { width: fit-content; font: 700 .62rem var(--f-mono); letter-spacing: .04em; color: var(--muted); background: rgba(255,255,255,.08); border: 1px solid var(--line); padding: 2px 7px; border-radius: 999px; }
+.gstar.hi { color: #CFF5E6; background: rgba(92,201,167,.2); border-color: rgba(92,201,167,.5); }
+.gstar small { font-size: .58rem; opacity: .8; }
 .mich-h { display: flex; flex-direction: column; gap: 2px; padding: 4px 2px 0; text-shadow: 0 1px 3px rgba(20,8,6,.9), 0 2px 14px rgba(20,8,6,.8); }
 .mich-h .muted { font-size: .82rem; }
 .famous-s { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
@@ -465,17 +470,17 @@ const TRIP = {
     { city: 'hoi', meal: 'd', place: 'Cửa Đại beach seafood shacks', area: 'Cửa Đại beach', dish: 'Nghêu hấp sả', en: 'Lemongrass-steamed clams', note: 'Plastic chairs on the sand where Hoi An families eat seafood at sunset. Simple and fresh.', tags: ['parents','beach'] },
     // Michelin Bib Gourmand (great value, Michelin Guide Vietnam 2026)
     { city: 'hcm', meal: 'm', place: 'Phở Minh', area: '63/6 Pasteur, District 1', dish: 'Phở bò', en: 'Classic beef phở in an alley', note: 'A tiny alley phở shop in central District 1, walkable from both your Saigon hotels.', tags: ['raffy','parents','easy'] },
-    { city: 'hcm', meal: 'm', place: 'Phở Chào', area: 'Ho Chi Minh City', dish: 'Phở', en: 'Rich, slow-simmered phở', note: 'A modern phở spot loved for its deep, clean broth.', tags: ['raffy','parents'] },
-    { city: 'hcm', meal: 'm', place: 'Bánh Cuốn Tây Hồ 127', area: 'Ho Chi Minh City', dish: 'Bánh cuốn', en: 'Silky steamed rice rolls with pork', note: 'Delicate, freshly steamed rice rolls. A soft, mild dish that suits Raffy.', tags: ['raffy','parents'] },
-    { city: 'hcm', meal: 'm', place: 'Hồng Phát', area: 'Ho Chi Minh City', dish: 'Hủ tiếu Nam Vang', en: 'Phnom Penh-style pork noodle soup', note: 'One of the city\'s best-known hủ tiếu houses, busy with families at breakfast.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'm', place: 'Phở Chào', area: 'Phú Nhuận', dish: 'Phở', en: 'Rich, slow-simmered phở', note: 'A modern phở spot loved for its deep, clean broth.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'm', place: 'Bánh Cuốn Tây Hồ 127', area: 'Tân Định, District 1', dish: 'Bánh cuốn', en: 'Silky steamed rice rolls with pork', note: 'Delicate, freshly steamed rice rolls. A soft, mild dish that suits Raffy.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'm', place: 'Hồng Phát', area: '389 Võ Văn Tần, District 3', dish: 'Hủ tiếu Nam Vang', en: 'Phnom Penh-style pork noodle soup', note: 'One of the city\'s best-known hủ tiếu houses. The Bến Thành branch at 293 Lý Tự Trọng is a short walk from your hotels and rated even higher (4.9 on Google).', tags: ['raffy','parents'] },
     { city: 'hcm', meal: 'm', place: 'Bún Bò Huế 14B', area: 'Ho Chi Minh City', dish: 'Bún bò Huế', en: 'Spicy lemongrass beef noodles', note: 'Hearty Hue-style noodles. Ask for it less spicy (ít cay).', tags: ['parents'] },
-    { city: 'hcm', meal: 'm', place: 'Bò Kho Gánh', area: 'Ho Chi Minh City', dish: 'Bò kho', en: 'Beef stew with bread or noodles', note: 'Fragrant, slow-cooked beef stew. Dunk bánh mì in it.', tags: ['raffy','parents'] },
-    { city: 'hcm', meal: 'm', place: 'Bánh Canh Cua Bà Ba', area: 'Ho Chi Minh City', dish: 'Bánh canh cua', en: 'Thick noodles in crab broth', note: 'New to the guide in 2026. Thick tapioca noodles loaded with crab.', tags: ['parents'] },
+    { city: 'hcm', meal: 'm', place: 'Bò Kho Gánh', area: 'Sư Vạn Hạnh, District 10', dish: 'Bò kho', en: 'Beef stew with bread or noodles', note: 'Fragrant, slow-cooked beef stew. Dunk bánh mì in it.', tags: ['raffy','parents'] },
+    { city: 'hcm', meal: 'm', place: 'Bánh Canh Cua Bà Ba', area: '84/6 Nguyễn Biểu, District 5', dish: 'Bánh canh cua', en: 'Thick noodles in crab broth', note: 'New to the guide in 2026. Thick tapioca noodles loaded with crab.', tags: ['parents'] },
     { city: 'hcm', meal: 'm', place: 'Cục Gạch Quán', area: 'Đặng Tất, District 1', dish: 'Southern home cooking', en: 'Family dishes in an old villa', note: 'Rustic Vietnamese home cooking in a lovely old house. A great sit-down dinner for all seven.', tags: ['parents','raffy','easy'] },
-    { city: 'hcm', meal: 'm', place: 'Chị Mơ', area: 'Ho Chi Minh City', dish: 'Home-style dishes', en: 'Everyday Vietnamese home cooking', note: 'New to the guide in 2026. Simple, generous home cooking. Check opening hours before you go.', tags: ['parents'] },
+    { city: 'hcm', meal: 'm', place: 'Chị Mơ', area: '323 Lý Tự Trọng, District 1', dish: 'Home-style dishes', en: 'Everyday Vietnamese home cooking', note: 'New to the guide in 2026. Simple, generous home cooking. Check opening hours before you go.', tags: ['parents'] },
     { city: 'dad', meal: 'm', place: 'Bánh Xèo 76', area: '85A Lê Văn Hưu, Ngũ Hành Sơn', dish: 'Bánh xèo', en: 'Crispy central-style pancakes', note: 'In the Hyatt\'s own district, one of the closest Michelin picks to where you\'re staying.', tags: ['raffy','parents','easy'] },
     { city: 'dad', meal: 'm', place: 'Thìa Gỗ', area: '53 Phan Thúc Duyện, Ngũ Hành Sơn', dish: 'Vietnamese family dishes', en: 'Seated, air-conditioned restaurant', note: 'A comfortable sit-down spot near the Hyatt. Easy with Raffy and the parents.', tags: ['raffy','parents','easy'] },
-    { city: 'dad', meal: 'm', place: 'Quán Nhân', area: '83 Phan Tứ, Ngũ Hành Sơn', dish: 'Local street food', en: 'Da Nang classics', note: 'A local favourite on Phan Tứ, a short ride from the Hyatt.', tags: ['parents'] },
+    { city: 'dad', meal: 'm', place: 'Quán Nhân', area: '83 Phan Tứ, Ngũ Hành Sơn', dish: 'Cháo vịt', en: 'Duck rice porridge and duck salad', note: 'Duck porridge and duck dishes, a short ride from the Hyatt. Gentle food that suits Raffy.', tags: ['parents'] },
     { city: 'dad', meal: 'm', place: 'Bún Chả Cá 109', area: '109 Nguyễn Chí Thanh, Hải Châu', dish: 'Bún chả cá', en: 'Fish cake noodle soup', note: 'Da Nang\'s signature breakfast soup, done exceptionally well.', tags: ['raffy','parents'] },
     { city: 'dad', meal: 'm', place: 'Mỳ Quảng Sứa Hồng Vân', area: '59 Lê Hồng Phong, Hải Châu', dish: 'Mì Quảng sứa', en: 'Turmeric noodles with jellyfish', note: 'A local twist on mì Quảng. The parents will likely love it.', tags: ['parents'] },
     { city: 'dad', meal: 'm', place: 'Bánh Xèo Tôm Nhảy Cô Ba', area: '248 Trưng Nữ Vương, Hòa Cường', dish: 'Bánh xèo tôm nhảy', en: '"Jumping shrimp" pancakes', note: 'Made to order with tiny fresh shrimp.', tags: ['raffy','parents'] },
@@ -1044,6 +1049,16 @@ const STARRED = new Set(['Ănăn Saigon', 'Long Triều', 'CieL', 'Akuna', 'Upst
 const isBib = x => BIB_ALSO.has(x.place) || (x.meal === 'm' && !STARRED.has(x.place));
 const isMich = x => x.meal === 'm' || BIB_ALSO.has(x.place);
 const michBadge = x => STARRED.has(x.place) ? '<span class="mich star">★ Michelin star</span>' : isBib(x) ? '<span class="mich">Michelin Bib Gourmand</span>' : '';
+// Google Maps rating [stars, reviews], checked 29 Oct 2026
+const GRATING = {
+  'Phở Minh': [4.4, 867], 'Phở Lệ': [4.2, 6158], 'Bánh Xèo 46A': [3.8, 2038], 'Phở Chào': [4.6, 622], 'Bánh Cuốn Tây Hồ 127': [4.6, 652],
+  'Hồng Phát': [4.6, 3866], 'Bún Bò Huế 14B': [4.2, 281], 'Bò Kho Gánh': [4.1, 1546], 'Bánh Canh Cua Bà Ba': [4.6, 1490], 'Chị Mơ': [4.8, 212],
+  'Cục Gạch Quán': [4.2, 4301], 'Bánh Xèo 76': [4.6, 481], 'Thìa Gỗ': [4.7, 7696], 'Quán Nhân': [4.7, 291], 'Bún Chả Cá 109': [4.2, 2097],
+  'Mỳ Quảng Sứa Hồng Vân': [4.4, 299], 'Bánh Xèo Tôm Nhảy Cô Ba': [3.9, 737], 'Ăn Thôi': [4.8, 8219], 'Hải Sản Bé Ni 2': [4.8, 14854]
+};
+// Cheap and loved by both: a Michelin Bib Gourmand with 4.5+ on Google from 200+ reviews
+const isTopValue = x => isBib(x) && GRATING[x.place] && GRATING[x.place][0] >= 4.5 && GRATING[x.place][1] >= 200;
+const gBadge = x => { const g = GRATING[x.place]; return g ? `<span class="gstar${g[0] >= 4.5 ? ' hi' : ''}">Google ${g[0].toFixed(1)}★ <small>(${g[1].toLocaleString('en-AU')})</small></span>` : ''; };
 // Shown when a city isn't covered by the Michelin Guide (Vietnam 2026)
 const MICHELIN_NONE = {
   hoi: 'Hoi An isn\'t covered by the Michelin Guide yet. The nearest picks are the Da Nang Bib Gourmands near the Hyatt (Bánh Xèo 76, Thìa Gỗ, Quán Nhân) and La Maison 1888.',
@@ -1052,7 +1067,7 @@ const MICHELIN_NONE = {
 function foodCard(x) {
   return `
       <details class="card spot">
-        <summary><span class="sum"><h3>${x.place}</h3><span class="famous-s"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span></span>${michBadge(x)}</span>${costPill(x.place)}${chev}</summary>
+        <summary><span class="sum"><h3>${x.place}</h3><span class="famous-s"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span></span><span class="badges">${michBadge(x)}${gBadge(x)}</span></span>${costPill(x.place)}${chev}</summary>
         <div class="spot-body">
           <div class="famous"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span><span class="muted">${x.en}</span></div>
           <p>${x.note}</p>
@@ -1063,12 +1078,13 @@ function foodCard(x) {
         </div>
       </details>`;
 }
+const byRating = (a, b) => ((GRATING[b.place] || [0])[0] - (GRATING[a.place] || [0])[0]) || ((GRATING[b.place] || [0, 0])[1] - (GRATING[a.place] || [0, 0])[1]);
 function viewEat() {
   let f = store.get('f-eat2', 'hcm'); if (!CITY_OPTS.some(o => o[0] === f)) f = 'hcm';
   const m = store.get('f-meal', ''), meal = MEALS.find(x => x[0] === m);
   const inMeal = (x, k) => x.city === f && (k === 'm' ? isMich(x) : x.meal === k);
   const items = meal ? TRIP.food.filter(x => inMeal(x, m)) : [];
-  const bibs = items.filter(isBib), stars = items.filter(x => STARRED.has(x.place));
+  const top = items.filter(isTopValue).sort(byRating), bibs = items.filter(x => isBib(x) && !isTopValue(x)).sort(byRating), stars = items.filter(x => STARRED.has(x.place));
   return `<section class="view">
     <div class="section-head"><span class="eyebrow">Ăn gì? · Where locals eat</span><h1>Eat</h1></div>
     ${cityBar('eat2', f)}
@@ -1078,7 +1094,8 @@ function viewEat() {
       </button>`; }).join('')}</div>
     ${meal && m === 'm' ? `<div class="stack">
       <div class="list-h"><h2>Michelin</h2><span class="vn">Bib Gourmand & stars</span></div>
-      ${bibs.length ? `<div class="mich-h"><h3>Bib Gourmand</h3><p class="muted">Michelin's "great food at a great price" picks, mostly under about A$15 a head.</p></div>${bibs.map(foodCard).join('')}` : ''}
+      ${top.length ? `<div class="mich-h"><h3>Cheap &amp; top-rated</h3><p class="muted">Michelin Bib Gourmand <b>and</b> 4.5★ or higher on Google from hundreds of reviews. Most are under A$10 a head.</p></div>${top.map(foodCard).join('')}` : ''}
+      ${bibs.length ? `<div class="mich-h"><h3>More Bib Gourmand</h3><p class="muted">Still Michelin-recommended and cheap, but with more mixed Google reviews.</p></div>${bibs.map(foodCard).join('')}` : ''}
       ${stars.length ? `<div class="mich-h"><h3>One Michelin star</h3><p class="muted">Tasting menus per person, before service and tax. Book a few weeks ahead.</p></div>${stars.map(foodCard).join('')}` : ''}
       ${!items.length ? `<p class="card muted">${MICHELIN_NONE[f] || 'No Michelin picks here.'}</p>` : ''}
       <p class="hint">From the Michelin Guide Vietnam 2026. Bib Gourmand spots also appear in the breakfast, lunch and dinner lists.</p>
@@ -1086,7 +1103,7 @@ function viewEat() {
       <div class="list-h"><h2>${meal[1]}</h2><span class="vn">${meal[2]}</span></div>
       ${items.map(x => `
       <details class="card spot">
-        <summary><span class="sum"><h3>${x.place}</h3><span class="famous-s"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span></span>${michBadge(x)}</span>${costPill(x.place)}${chev}</summary>
+        <summary><span class="sum"><h3>${x.place}</h3><span class="famous-s"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span></span><span class="badges">${michBadge(x)}${gBadge(x)}</span></span>${costPill(x.place)}${chev}</summary>
         <div class="spot-body">
           <div class="famous"><span class="eyebrow">Famous for</span><span class="vn">${x.dish}</span><span class="muted">${x.en}</span></div>
           <p>${x.note}</p>
